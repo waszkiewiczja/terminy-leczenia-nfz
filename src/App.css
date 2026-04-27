@@ -1,0 +1,517 @@
+/* App */
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 3rem;
+}
+
+.app h1 {
+  text-align: center;
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  color: #1a56db;
+}
+
+.app-loading {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+}
+
+/* Search Form */
+.search-form {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.form-row > * {
+  flex: 1;
+  min-width: 220px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label,
+.autocomplete > label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.3rem;
+}
+
+.form-group select,
+.autocomplete input {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: #fff;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group select:focus,
+.autocomplete input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.woj-checkboxes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.25rem 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+}
+
+.woj-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 400 !important;
+  color: #334155;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-bottom: 0 !important;
+}
+
+.woj-checkbox input {
+  accent-color: #3b82f6;
+}
+
+.checkbox-group {
+  justify-content: flex-end;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #3b82f6;
+}
+
+.radio-group {
+  display: flex;
+  gap: 1rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #3b82f6;
+}
+
+/* Autocomplete */
+.autocomplete {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.autocomplete-input-wrap {
+  display: flex;
+}
+
+.autocomplete-input-wrap input {
+  flex: 1;
+  border-radius: 6px 0 0 6px;
+}
+
+.autocomplete-toggle {
+  padding: 0 0.6rem;
+  border: 1px solid #cbd5e1;
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  background: #f1f5f9;
+  color: #475569;
+  cursor: pointer;
+  font-size: 0.75rem;
+  line-height: 1;
+  transition: background 0.15s;
+}
+
+.autocomplete-toggle:hover {
+  background: #e2e8f0;
+}
+
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #94a3b8;
+  border-radius: 0 0 6px 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  z-index: 100;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+.autocomplete-list li {
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.autocomplete-list li:hover,
+.autocomplete-list li.selected {
+  background: #eff6ff;
+  color: #1a56db;
+}
+
+.autocomplete-list li.more {
+  color: #94a3b8;
+  font-style: italic;
+  cursor: default;
+}
+
+/* Button */
+.btn-search {
+  display: block;
+  width: 100%;
+  padding: 0.7rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: #1a56db;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-search:hover {
+  background: #1e40af;
+}
+
+.btn-search:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}
+
+/* Results */
+.results-info {
+  text-align: center;
+  padding: 2rem;
+  color: #64748b;
+  font-size: 1rem;
+}
+
+.results-count {
+  font-size: 0.9rem;
+  color: #475569;
+  margin-bottom: 0.5rem;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  table-layout: fixed;
+}
+
+table th:nth-child(1) {
+  width: 15%;
+} /* Świadczenie */
+table th:nth-child(2) {
+  width: 7%;
+} /* Przypadek */
+table th:nth-child(3) {
+  width: 23%;
+} /* Świadczeniodawca */
+table th:nth-child(4) {
+  width: 10%;
+} /* Pierwszy wolny termin */
+table th:nth-child(5) {
+  width: 18%;
+} /* Komórka */
+table th:nth-child(6) {
+  width: 27%;
+} /* Adres */
+
+thead th {
+  position: sticky;
+  top: 0;
+  background: #1e3a5f;
+  color: #fff;
+  padding: 0.6rem 0.5rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+tbody tr:hover {
+  background: #eff6ff;
+}
+
+tbody td {
+  padding: 0.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: top;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+td.num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+td.termin {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+td.pilny {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+td.stabilny {
+  color: #16a34a;
+}
+
+.badge-dzieci {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 0.75rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.telefon {
+  font-size: inherit;
+}
+
+.telefon a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.telefon a:hover {
+  color: #1a56db;
+}
+
+.adres-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.adres-link:hover {
+  color: #1a56db;
+}
+
+/* Mobile cards - hidden on desktop */
+.mobile-only {
+  display: none;
+}
+
+/* Mobile card styles */
+.result-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.85rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.card-service {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1e293b;
+  flex: 1;
+}
+
+.card-badge {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+.card-badge.pilny {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.card-badge.stabilny {
+  background: #f0fdf4;
+  color: #16a34a;
+}
+
+.card-termin {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a56db;
+  margin-bottom: 0.6rem;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.card-row {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.82rem;
+}
+
+.card-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+/* Responsive - tablet */
+@media (max-width: 900px) {
+  .woj-checkboxes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Responsive - mobile */
+@media (max-width: 640px) {
+  .app {
+    padding: 0.5rem 0.65rem 2rem;
+  }
+
+  .app h1 {
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+  }
+
+  .search-form {
+    padding: 0.85rem;
+    border-radius: 10px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .form-row > * {
+    min-width: 0;
+  }
+
+  .woj-checkboxes {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.2rem 0.5rem;
+    padding: 0.4rem 0.55rem;
+    font-size: 0.82rem;
+  }
+
+  .woj-checkbox {
+    font-size: 0.82rem;
+  }
+
+  .form-group label,
+  .autocomplete > label {
+    font-size: 0.8rem;
+  }
+
+  .form-group select,
+  .autocomplete input {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .autocomplete-list {
+    max-height: 200px;
+  }
+
+  .autocomplete-list li {
+    padding: 0.55rem 0.75rem;
+  }
+
+  .btn-search {
+    padding: 0.75rem;
+    font-size: 1rem;
+    border-radius: 10px;
+  }
+
+  .results-count {
+    font-size: 0.82rem;
+  }
+
+  /* Hide table, show cards */
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .card-row .adres-link {
+    color: #1a56db;
+  }
+
+  .card-row .telefon a {
+    color: #1a56db;
+  }
+}

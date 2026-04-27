@@ -1,0 +1,70 @@
+name: Update data
+
+on:
+  schedule:
+    - cron: "30 2 * * *" # 4:30 CET (2:30 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Download latest data from NFZ
+        run: node scripts/download.js | tee download-output.txt
+
+      - name: Check if data changed
+        id: check
+        run: |
+          if grep -q "DATA_CHANGED=true" download-output.txt; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+          rm download-output.txt
+
+      - name: Convert Excel to JSON
+        if: steps.check.outputs.changed == 'true'
+        run: node scripts/convert.js
+
+      - name: Build app
+        if: steps.check.outputs.changed == 'true'
+        run: npm run build
+
+      - name: Commit updated data
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dane/ public/dane/
+          git commit -m "chore: update NFZ data $(date +%Y-%m-%d)" || exit 0
+          git push
+
+      - name: Deploy to GitHub Pages
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
