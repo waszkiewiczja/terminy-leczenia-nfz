@@ -100,7 +100,7 @@ export default function SearchForm({
 
       <div className="form-row">
         <Autocomplete
-          label="Szpital / Przychodnia"
+          label="Placówka"
           options={providersList}
           value={filters.szpital}
           onChange={(v) => update({ szpital: v })}
