@@ -59,7 +59,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                   <td>{r.swiadczeniodawca}</td>
                   <td className="termin">{r.termin || "—"}</td>
                   <td>
-                    {r.komorka}
+                    {capitalize(r.komorka)}
                     {r.dzieci && <span className="badge-dzieci">dzieci</span>}
                   </td>
                   <td>
@@ -116,7 +116,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                 <div className="card-row">
                   <span className="card-label">Komórka</span>
                   <span>
-                    {r.komorka}
+                    {capitalize(r.komorka)}
                     {r.dzieci && <span className="badge-dzieci">dzieci</span>}
                   </span>
                 </div>
