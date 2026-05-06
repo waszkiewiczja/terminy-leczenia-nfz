@@ -92,19 +92,19 @@ function App() {
   return (
     <div className="app">
       <div className="app-title-row">
-        <img
-          className="app-title-logo"
-          src={`${import.meta.env.BASE_URL}terminy-leczenia-nfz.jpg`}
-          alt="Terminy leczenia NFZ"
-        />
-        <div className="app-title-text">
+        <div className="app-title-heading">
+          <img
+            className="app-title-logo"
+            src={`${import.meta.env.BASE_URL}terminy-leczenia-nfz.jpg`}
+            alt="Terminy leczenia NFZ"
+          />
           <h1>Wyszukiwarka Terminów Leczenia NFZ</h1>
-          <p>
-            Sprawdź aktualne terminy leczenia NFZ w Polsce i znajdź najbliższy
-            wolny termin wizyty lub zabiegu według świadczenia, województwa,
-            miasta czy placówki.
-          </p>
         </div>
+        <p className="app-title-lead">
+          Sprawdź aktualne terminy leczenia NFZ w Polsce i znajdź najbliższy
+          wolny termin wizyty lub zabiegu według świadczenia, województwa,
+          miasta czy placówki.
+        </p>
       </div>
       <InfoModal />
       <SearchForm

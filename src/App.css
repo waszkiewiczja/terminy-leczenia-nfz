@@ -15,16 +15,17 @@
 
 .app-title-row {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
 }
 
-.app-title-text {
+.app-title-heading {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
 .app-title-logo {
@@ -35,16 +36,18 @@
   flex: 0 0 auto;
 }
 
-.app-title-row h1 {
+.app-title-heading h1 {
+  text-align: left;
   margin-bottom: 0.5rem;
 }
 
-.app-title-text p {
+.app-title-lead {
   margin: 0 0 1.5rem;
   max-width: 780px;
   font-size: 1rem;
   color: #334155;
   line-height: 1.5;
+  text-align: center;
 }
 
 .app-loading {
