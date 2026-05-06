@@ -13,6 +13,40 @@
   color: #1a56db;
 }
 
+.app-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.app-title-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.app-title-logo {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex: 0 0 auto;
+}
+
+.app-title-row h1 {
+  margin-bottom: 0.5rem;
+}
+
+.app-title-text p {
+  margin: 0 0 1.5rem;
+  max-width: 780px;
+  font-size: 1rem;
+  color: #334155;
+  line-height: 1.5;
+}
+
 .app-loading {
   text-align: center;
   padding: 4rem;
@@ -430,6 +464,13 @@ td.stabilny {
 @media (max-width: 900px) {
   .woj-checkboxes {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .app-title-logo {
+    width: 40px;
+    height: 40px;
   }
 }
 

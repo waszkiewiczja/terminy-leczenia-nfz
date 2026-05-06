@@ -16,24 +16,23 @@ export default function InfoModal() {
               ×
             </button>
             <article>
-              <h2>Terminy leczenia NFZ — aktualne dane</h2>
+              <h2>Terminy leczenia NFZ aktualne dane</h2>
               <p>
-                Serwis <strong>terminy leczenia NFZ</strong> umożliwia szybkie
-                wyszukiwanie dostępnych terminów wizyt i zabiegów w ramach
-                Narodowego Funduszu Zdrowia. Dane są pobierane bezpośrednio ze
-                strony NFZ i aktualizowane codziennie.
+                Serwis <b>terminy leczenia NFZ</b> umożliwia szybkie
+                wyszukiwanie dostępnych terminów wizyt i zabiegów w ramach NFZ.
+                Dane są pobierane bezpośrednio ze strony NFZ i aktualizowane
+                codziennie.
               </p>
               <p>
-                Dzięki naszej wyszukiwarce{" "}
-                <strong>terminów leczenia NFZ</strong> możesz porównać czasy
-                oczekiwania na świadczenia medyczne w różnych placówkach i
-                województwach. Znajdziesz tutaj informacje o pierwszych wolnych
-                terminach u specjalistów, na zabiegi operacyjne, rehabilitację,
-                diagnostykę i wiele innych.
+                Dzięki naszej wyszukiwarce <b>terminów leczenia NFZ</b> możesz
+                porównać czasy oczekiwania na świadczenia medyczne w różnych
+                placówkach i województwach. Znajdziesz tutaj informacje o
+                pierwszych wolnych terminach u specjalistów, na zabiegi
+                operacyjne, rehabilitację, diagnostykę i wiele innych.
               </p>
               <p>
-                Sprawdź <strong>terminy leczenia NFZ</strong> w swoim regionie —
-                wybierz województwo, rodzaj świadczenia lub konkretną placówkę.
+                Sprawdź <b>terminy leczenia NFZ</b> w swoim regionie — wybierz
+                województwo, rodzaj świadczenia lub konkretną placówkę.
                 Wyszukiwarka obsługuje wszystkie 16 województw i ponad 470
                 rodzajów świadczeń medycznych.
               </p>
