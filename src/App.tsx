@@ -135,8 +135,7 @@ function App() {
               </p>
               <p>
                 Dane źródłowe pochodzą z oficjalnego portalu{" "}
-                <em>Informator o terminach leczenia</em> prowadzonego przez
-                Narodowy Fundusz Zdrowia.
+                <em>Informator o terminach leczenia</em> prowadzonego przez NFZ.
               </p>
             </article>
           </div>

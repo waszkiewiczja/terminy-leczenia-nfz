@@ -56,7 +56,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                   >
                     {r.kat === "PRZYPADEK PILNY" ? "Pilny" : "Stabilny"}
                   </td>
-                  <td>{r.swiadczeniodawca}</td>
+                  <td>{capitalize(r.swiadczeniodawca)}</td>
                   <td className="termin">{r.termin || "—"}</td>
                   <td>
                     {capitalize(r.komorka)}
@@ -71,8 +71,8 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {r.miasto}
-                      {ulica ? `, ${ulica}` : ""}
+                      {capitalize(r.miasto)}
+                      {ulica ? `, ${capitalize(ulica)}` : ""}
                     </a>
                     {telefon && (
                       <div className="telefon">
@@ -111,7 +111,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
               <div className="card-body">
                 <div className="card-row">
                   <span className="card-label">Świadczeniodawca</span>
-                  <span>{r.swiadczeniodawca}</span>
+                  <span>{capitalize(r.swiadczeniodawca)}</span>
                 </div>
                 <div className="card-row">
                   <span className="card-label">Komórka</span>
@@ -131,8 +131,8 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {r.miasto}
-                      {ulica ? `, ${ulica}` : ""}
+                      {capitalize(r.miasto)}
+                      {ulica ? `, ${capitalize(ulica)}` : ""}
                     </a>
                   </span>
                 </div>
