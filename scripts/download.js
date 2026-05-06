@@ -10,8 +10,13 @@ if (!fs.existsSync(DANE_DIR)) {
   fs.mkdirSync(DANE_DIR, { recursive: true });
 }
 
-function get(url) {
+function get(url, redirectCount = 0) {
   return new Promise((resolve, reject) => {
+    if (redirectCount > 10) {
+      reject(new Error("Too many redirects"));
+      return;
+    }
+
     const mod = url.startsWith("https") ? https : http;
     mod
       .get(url, { headers: { "User-Agent": "Mozilla/5.0" } }, (res) => {
@@ -20,17 +25,34 @@ function get(url) {
           res.statusCode < 400 &&
           res.headers.location
         ) {
-          return get(res.headers.location).then(resolve, reject);
+          const redirectedUrl = new URL(res.headers.location, url).toString();
+          return get(redirectedUrl, redirectCount + 1).then(resolve, reject);
         }
         const chunks = [];
         res.on("data", (c) => chunks.push(c));
         res.on("end", () =>
-          resolve({ status: res.statusCode, body: Buffer.concat(chunks) }),
+          resolve({
+            status: res.statusCode,
+            headers: res.headers,
+            body: Buffer.concat(chunks),
+          }),
         );
         res.on("error", reject);
       })
       .on("error", reject);
   });
+}
+
+function looksLikeXlsx(body) {
+  if (!body || body.length < 4) {
+    return false;
+  }
+  // XLSX files are ZIP containers and should start with PK signature.
+  return body[0] === 0x50 && body[1] === 0x4b;
+}
+
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function main() {
@@ -113,22 +135,41 @@ async function main() {
       : `woj-${i + 1}.xlsx`;
 
     console.log(`Downloading ${filename}...`);
-    const { status, body } = await get(url);
+    const { status, headers, body } = await get(url);
 
     if (status !== 200) {
       console.error(`  Failed: HTTP ${status}`);
+      if (i < links.length - 1) {
+        await sleep(2000);
+      }
+      continue;
+    }
+
+    if (!looksLikeXlsx(body)) {
+      const contentType = headers["content-type"] || "unknown";
+      console.error(`  Skipped: unexpected content (${contentType})`);
+      if (i < links.length - 1) {
+        await sleep(2000);
+      }
       continue;
     }
 
     const oldSize = existing[filename];
     if (oldSize !== undefined && oldSize === body.length) {
       console.log(`  Unchanged (${body.length} bytes)`);
+      if (i < links.length - 1) {
+        await sleep(2000);
+      }
       continue;
     }
 
     fs.writeFileSync(path.join(DANE_DIR, filename), body);
     console.log(`  Saved (${body.length} bytes, was ${oldSize ?? "new"})`);
     changed = true;
+
+    if (i < links.length - 1) {
+      await sleep(2000);
+    }
   }
 
   if (changed) {
