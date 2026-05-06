@@ -18,28 +18,38 @@ function get(url, redirectCount = 0) {
     }
 
     const mod = url.startsWith("https") ? https : http;
-    mod
-      .get(url, { headers: { "User-Agent": "Mozilla/5.0" } }, (res) => {
-        if (
-          res.statusCode >= 300 &&
-          res.statusCode < 400 &&
-          res.headers.location
-        ) {
-          const redirectedUrl = new URL(res.headers.location, url).toString();
-          return get(redirectedUrl, redirectCount + 1).then(resolve, reject);
-        }
-        const chunks = [];
-        res.on("data", (c) => chunks.push(c));
-        res.on("end", () =>
-          resolve({
-            status: res.statusCode,
-            headers: res.headers,
-            body: Buffer.concat(chunks),
-          }),
-        );
-        res.on("error", reject);
-      })
-      .on("error", reject);
+    let request;
+    try {
+      request = mod.get(
+        url,
+        { headers: { "User-Agent": "Mozilla/5.0" } },
+        (res) => {
+          if (
+            res.statusCode >= 300 &&
+            res.statusCode < 400 &&
+            res.headers.location
+          ) {
+            const redirectedUrl = new URL(res.headers.location, url).toString();
+            return get(redirectedUrl, redirectCount + 1).then(resolve, reject);
+          }
+          const chunks = [];
+          res.on("data", (c) => chunks.push(c));
+          res.on("end", () =>
+            resolve({
+              status: res.statusCode,
+              headers: res.headers,
+              body: Buffer.concat(chunks),
+            }),
+          );
+          res.on("error", reject);
+        },
+      );
+    } catch (error) {
+      reject(new Error(`Request failed for URL: ${url} (${error.message})`));
+      return;
+    }
+
+    request.on("error", reject);
   });
 }
 
@@ -56,7 +66,7 @@ function sleep(ms) {
 }
 
 async function main() {
-  console.log("Fetching download page...");
+  console.log(`[${new Date().toISOString()}] Fetching download page...`);
   const { body: html } = await get(DOWNLOAD_PAGE);
   const page = html.toString("utf-8");
 
@@ -135,6 +145,7 @@ async function main() {
       : `woj-${i + 1}.xlsx`;
 
     console.log(`Downloading ${filename}...`);
+    console.log(`  URL: ${url}`);
     const { status, headers, body } = await get(url);
 
     if (status !== 200) {
