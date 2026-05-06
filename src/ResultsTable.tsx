@@ -6,6 +6,14 @@ function capitalize(s: string) {
     .replace(/(^|[\s-])(\p{L})/gu, (_, sep, ch) => sep + ch.toUpperCase());
 }
 
+function formatDisplayDate(date: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return date;
+  }
+  const [yyyy, mm, dd] = date.split("-");
+  return `${dd}-${mm}-${yyyy}`;
+}
+
 interface ResultsTableProps {
   results: TerminRecord[];
   loading: boolean;
@@ -57,7 +65,9 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                     {r.kat === "PRZYPADEK PILNY" ? "Pilny" : "Stabilny"}
                   </td>
                   <td>{r.swiadczeniodawca}</td>
-                  <td className="termin">{r.termin || "—"}</td>
+                  <td className="termin">
+                    {r.termin ? formatDisplayDate(r.termin) : "—"}
+                  </td>
                   <td>
                     {capitalize(r.komorka)}
                     {r.dzieci && <span className="badge-dzieci">dzieci</span>}
@@ -107,7 +117,9 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                   {r.kat === "PRZYPADEK PILNY" ? "Pilny" : "Stabilny"}
                 </span>
               </div>
-              <div className="card-termin">{r.termin || "—"}</div>
+              <div className="card-termin">
+                {r.termin ? formatDisplayDate(r.termin) : "—"}
+              </div>
               <div className="card-body">
                 <div className="card-row">
                   <span className="card-label">Świadczeniodawca</span>
