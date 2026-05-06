@@ -95,7 +95,7 @@ function App() {
         <div className="app-title-heading">
           <img
             className="app-title-logo"
-            src={`${import.meta.env.BASE_URL}terminy-leczenia-nfz.jpg`}
+            src={`${import.meta.env.BASE_URL}terminy leczenia nfz.jpg`}
             alt="Terminy leczenia NFZ"
           />
           <h1>Wyszukiwarka Terminów Leczenia NFZ</h1>
