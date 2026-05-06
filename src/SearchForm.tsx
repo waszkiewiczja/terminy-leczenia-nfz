@@ -12,7 +12,10 @@ interface SearchFormProps {
 function capitalize(s: string) {
   return s
     .toLowerCase()
-    .replace(/(^|[\s-])(\p{L})/gu, (_, sep, ch) => sep + ch.toUpperCase());
+    .replace(
+      /(^|[\s\-"'„”‚‘’])(\p{L})/gu,
+      (_, sep, ch) => sep + ch.toUpperCase(),
+    );
 }
 
 export default function SearchForm({
