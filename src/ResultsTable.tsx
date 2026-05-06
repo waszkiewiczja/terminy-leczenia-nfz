@@ -56,7 +56,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                   >
                     {r.kat === "PRZYPADEK PILNY" ? "Pilny" : "Stabilny"}
                   </td>
-                  <td>{capitalize(r.swiadczeniodawca)}</td>
+                  <td>{r.swiadczeniodawca}</td>
                   <td className="termin">{r.termin || "—"}</td>
                   <td>
                     {capitalize(r.komorka)}
@@ -111,7 +111,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
               <div className="card-body">
                 <div className="card-row">
                   <span className="card-label">Świadczeniodawca</span>
-                  <span>{capitalize(r.swiadczeniodawca)}</span>
+                  <span>{r.swiadczeniodawca}</span>
                 </div>
                 <div className="card-row">
                   <span className="card-label">Komórka</span>
