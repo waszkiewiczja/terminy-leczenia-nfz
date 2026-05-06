@@ -519,8 +519,8 @@ td.stabilny {
 
 /* Info trigger */
 .info-trigger {
-  display: inline-block;
-  margin-top: 1rem;
+  display: block;
+  margin: 0 auto 1rem;
   background: none;
   border: none;
   color: #94a3b8;
