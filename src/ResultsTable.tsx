@@ -14,7 +14,7 @@ interface ResultsTableProps {
   loading: boolean;
 }
 
-export default function ResultsTable({ results, loading }: ResultsTableProps) {
+export const ResultsTable = ({ results, loading }: ResultsTableProps) => {
   if (loading) {
     return <div className="results-info">Ładowanie danych...</div>;
   }
@@ -159,4 +159,4 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
       </div>
     </div>
   );
-}
+};

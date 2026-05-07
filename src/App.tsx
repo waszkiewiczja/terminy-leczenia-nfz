@@ -1,8 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
 import type { Meta, TerminRecord, SearchFilters } from "./types";
-import SearchForm from "./SearchForm";
-import ResultsTable from "./ResultsTable";
-import InfoModal from "./InfoModal";
+import { AppTitle } from "./AppTitle";
+import { InfoModal } from "./InfoModal";
+import { SearchForm } from "./SearchForm";
+import { ResultsTable } from "./ResultsTable";
 import "./App.css";
 
 const EMPTY_FILTERS: SearchFilters = {
@@ -90,21 +91,7 @@ function App() {
 
   return (
     <div className="app">
-      <div className="app-title-row">
-        <div className="app-title-heading">
-          <img
-            className="app-title-logo"
-            src={`${import.meta.env.BASE_URL}terminy leczenia nfz.jpg`}
-            alt="Terminy leczenia NFZ"
-          />
-          <h1>Aktualne Terminy Leczenia NFZ</h1>
-        </div>
-        <p className="app-title-lead">
-          Sprawdź aktualne terminy leczenia NFZ w Polsce i znajdź najbliższy
-          wolny termin wizyty lub zabiegu według świadczenia, województwa,
-          miasta czy placówki.
-        </p>
-      </div>
+      <AppTitle />
       <InfoModal />
       <SearchForm
         meta={meta}

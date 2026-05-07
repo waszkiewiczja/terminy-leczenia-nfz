@@ -10,13 +10,13 @@ interface SearchFormProps {
   loading: boolean;
 }
 
-export default function SearchForm({
+export const SearchForm = ({
   meta,
   filters,
   onFiltersChange,
   onSearch,
   loading,
-}: SearchFormProps) {
+}: SearchFormProps) => {
   const update = (patch: Partial<SearchFilters>) => {
     onFiltersChange({ ...filters, ...patch });
   };
@@ -131,4 +131,4 @@ export default function SearchForm({
       </button>
     </form>
   );
-}
+};

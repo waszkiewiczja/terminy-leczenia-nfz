@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function InfoModal() {
+export const InfoModal = () => {
   const [showInfo, setShowInfo] = useState(false);
 
   return (
@@ -46,4 +46,4 @@ export default function InfoModal() {
       )}
     </>
   );
-}
+};
