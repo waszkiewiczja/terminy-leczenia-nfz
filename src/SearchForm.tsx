@@ -1,5 +1,6 @@
 import type { Meta, SearchFilters } from "./types";
 import Autocomplete from "./Autocomplete";
+import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
 
 interface SearchFormProps {
   meta: Meta;
@@ -7,15 +8,6 @@ interface SearchFormProps {
   onFiltersChange: (filters: SearchFilters) => void;
   onSearch: () => void;
   loading: boolean;
-}
-
-function capitalize(s: string) {
-  return s
-    .toLowerCase()
-    .replace(
-      /(^|[\s\-."'„”‚‘’])(\p{L})/gu,
-      (_, sep, ch) => sep + ch.toUpperCase(),
-    );
 }
 
 export default function SearchForm({
@@ -69,7 +61,7 @@ export default function SearchForm({
                     update({ wojewodztwo: next, miejscowosc: "" });
                   }}
                 />
-                {capitalize(w)}
+                {capitalizeWords(w)}
               </label>
             ))}
           </div>
@@ -83,7 +75,7 @@ export default function SearchForm({
           value={filters.swiadczenie}
           onChange={(v) => update({ swiadczenie: v })}
           placeholder="Wpisz lub wybierz z listy..."
-          displayTransform={capitalize}
+          displayTransform={capitalizeWords}
         />
       </div>
 
@@ -94,7 +86,7 @@ export default function SearchForm({
           value={filters.miejscowosc}
           onChange={(v) => update({ miejscowosc: v })}
           placeholder="Wpisz lub wybierz z listy..."
-          displayTransform={capitalize}
+          displayTransform={capitalizeWords}
         />
       </div>
 
@@ -105,7 +97,7 @@ export default function SearchForm({
           value={filters.szpital}
           onChange={(v) => update({ szpital: v })}
           placeholder="Wpisz lub wybierz z listy..."
-          displayTransform={capitalize}
+          displayTransform={formatProviderDisplayName}
         />
       </div>
 

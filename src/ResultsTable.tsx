@@ -1,13 +1,5 @@
 import type { TerminRecord } from "./types";
-
-function capitalize(s: string) {
-  return s
-    .toLowerCase()
-    .replace(
-      /(^|[\s\-."'„”‚‘’])(\p{L})/gu,
-      (_, sep, ch) => sep + ch.toUpperCase(),
-    );
-}
+import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
 
 function formatDisplayDate(date: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
@@ -59,7 +51,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
               const telefon = parts[2] || "";
               return (
                 <tr key={i}>
-                  <td>{capitalize(r.sw)}</td>
+                  <td>{capitalizeWords(r.sw)}</td>
                   <td
                     className={
                       r.kat === "PRZYPADEK PILNY" ? "pilny" : "stabilny"
@@ -67,12 +59,12 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                   >
                     {r.kat === "PRZYPADEK PILNY" ? "Pilny" : "Stabilny"}
                   </td>
-                  <td>{capitalize(r.swiadczeniodawca)}</td>
+                  <td>{formatProviderDisplayName(r.swiadczeniodawca)}</td>
                   <td className="termin">
                     {r.termin ? formatDisplayDate(r.termin) : "—"}
                   </td>
                   <td>
-                    {capitalize(r.komorka)}
+                    {capitalizeWords(r.komorka)}
                     {r.dzieci && <span className="badge-dzieci">dzieci</span>}
                   </td>
                   <td>
@@ -84,8 +76,8 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {capitalize(r.miasto)}
-                      {ulica ? `, ${capitalize(ulica)}` : ""}
+                      {capitalizeWords(r.miasto)}
+                      {ulica ? `, ${capitalizeWords(ulica)}` : ""}
                     </a>
                     {telefon && (
                       <div className="telefon">
@@ -111,7 +103,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
           return (
             <div className="result-card" key={i}>
               <div className="card-header">
-                <span className="card-service">{capitalize(r.sw)}</span>
+                <span className="card-service">{capitalizeWords(r.sw)}</span>
                 <span
                   className={`card-badge ${
                     r.kat === "PRZYPADEK PILNY" ? "pilny" : "stabilny"
@@ -126,12 +118,12 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
               <div className="card-body">
                 <div className="card-row">
                   <span className="card-label">Placówka</span>
-                  <span>{capitalize(r.swiadczeniodawca)}</span>
+                  <span>{formatProviderDisplayName(r.swiadczeniodawca)}</span>
                 </div>
                 <div className="card-row">
                   <span className="card-label">Komórka</span>
                   <span>
-                    {capitalize(r.komorka)}
+                    {capitalizeWords(r.komorka)}
                     {r.dzieci && <span className="badge-dzieci">dzieci</span>}
                   </span>
                 </div>
@@ -146,8 +138,8 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {capitalize(r.miasto)}
-                      {ulica ? `, ${capitalize(ulica)}` : ""}
+                      {capitalizeWords(r.miasto)}
+                      {ulica ? `, ${capitalizeWords(ulica)}` : ""}
                     </a>
                   </span>
                 </div>
