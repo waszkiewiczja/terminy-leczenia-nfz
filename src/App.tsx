@@ -6,7 +6,6 @@ import InfoModal from "./InfoModal";
 import "./App.css";
 
 const EMPTY_FILTERS: SearchFilters = {
-  przypadek: "PRZYPADEK STABILNY",
   dzieci: false,
   swiadczenie: "",
   wojewodztwo: [],

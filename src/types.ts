@@ -24,7 +24,6 @@ export interface Meta {
 }
 
 export interface SearchFilters {
-  przypadek: "PRZYPADEK STABILNY" | "PRZYPADEK PILNY" | "";
   dzieci: boolean;
   swiadczenie: string;
   wojewodztwo: string[];
