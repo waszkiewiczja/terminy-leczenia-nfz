@@ -43,7 +43,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
             <tr>
               <th>Świadczenie</th>
               <th>Przypadek</th>
-              <th>Świadczeniodawca</th>
+              <th>Placówka</th>
               <th>Pierwszy wolny termin</th>
               <th>Komórka</th>
               <th>Adres</th>
@@ -122,7 +122,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
               </div>
               <div className="card-body">
                 <div className="card-row">
-                  <span className="card-label">Świadczeniodawca</span>
+                  <span className="card-label">Placówka</span>
                   <span>{r.swiadczeniodawca}</span>
                 </div>
                 <div className="card-row">
