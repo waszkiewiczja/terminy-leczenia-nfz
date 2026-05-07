@@ -310,22 +310,19 @@ table {
 }
 
 table th:nth-child(1) {
-  width: 15%;
-} /* Świadczenie */
-table th:nth-child(2) {
-  width: 7%;
-} /* Przypadek */
-table th:nth-child(3) {
-  width: 23%;
-} /* Świadczeniodawca */
-table th:nth-child(4) {
   width: 10%;
+} /* Przypadek */
+table th:nth-child(2) {
+  width: 28%;
+} /* Świadczeniodawca */
+table th:nth-child(3) {
+  width: 14%;
 } /* Pierwszy wolny termin */
-table th:nth-child(5) {
-  width: 18%;
+table th:nth-child(4) {
+  width: 20%;
 } /* Komórka */
-table th:nth-child(6) {
-  width: 27%;
+table th:nth-child(5) {
+  width: 28%;
 } /* Adres */
 
 thead th {
@@ -456,6 +453,10 @@ td.stabilny {
 }
 
 .card-termin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
   font-size: 1rem;
   font-weight: 600;
   color: #1a56db;

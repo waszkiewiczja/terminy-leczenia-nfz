@@ -27,16 +27,19 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
     );
   }
 
+  const displayServiceName = capitalizeWords(results[0].sw);
+
   return (
     <div className="results">
-      <p className="results-count">Znaleziono: {results.length} wyników</p>
+      <p className="results-count">
+        Znaleziono: {results.length} wyników - {displayServiceName}
+      </p>
 
       {/* Desktop table */}
       <div className="table-wrapper desktop-only">
         <table>
           <thead>
             <tr>
-              <th>Świadczenie</th>
               <th>Przypadek</th>
               <th>Placówka</th>
               <th>Pierwszy wolny termin</th>
@@ -51,7 +54,6 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
               const telefon = parts[2] || "";
               return (
                 <tr key={i}>
-                  <td>{capitalizeWords(r.sw)}</td>
                   <td
                     className={
                       r.kat === "PRZYPADEK PILNY" ? "pilny" : "stabilny"
@@ -102,8 +104,8 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
           const telefon = parts[2] || "";
           return (
             <div className="result-card" key={i}>
-              <div className="card-header">
-                <span className="card-service">{capitalizeWords(r.sw)}</span>
+              <div className="card-termin">
+                <span>{r.termin ? formatDisplayDate(r.termin) : "—"}</span>
                 <span
                   className={`card-badge ${
                     r.kat === "PRZYPADEK PILNY" ? "pilny" : "stabilny"
@@ -111,9 +113,6 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                 >
                   {r.kat === "PRZYPADEK PILNY" ? "Pilny" : "Stabilny"}
                 </span>
-              </div>
-              <div className="card-termin">
-                {r.termin ? formatDisplayDate(r.termin) : "—"}
               </div>
               <div className="card-body">
                 <div className="card-row">
