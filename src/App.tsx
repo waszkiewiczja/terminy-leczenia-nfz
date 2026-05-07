@@ -4,6 +4,7 @@ import { AppTitle } from "./AppTitle";
 import { InfoModal } from "./InfoModal";
 import { SearchForm } from "./SearchForm";
 import { ResultsTable } from "./ResultsTable";
+import { fetchQueues, getProvinceCode, type QueueEntry } from "./nfzApi";
 import "./App.css";
 
 const EMPTY_FILTERS: SearchFilters = {
@@ -13,6 +14,25 @@ const EMPTY_FILTERS: SearchFilters = {
   miejscowosc: "",
   szpital: "",
 };
+
+function mapQueueToRecord(entry: QueueEntry): TerminRecord {
+  const attr = entry.attributes;
+  return {
+    sw: attr.benefit,
+    kat: attr.case === 2 ? "PRZYPADEK PILNY" : "PRZYPADEK STABILNY",
+    kod_sw: "",
+    swiadczeniodawca: attr.provider,
+    komorka: attr.place,
+    adres: `${attr.locality || ""};${attr.address || ""};${attr.phone || ""}`,
+    miasto: attr.locality || "",
+    dzieci: attr["benefits-for-children"] === "Y",
+    oczekujacy: attr.statistics?.["provider-data"]?.awaiting ?? 0,
+    skresleni: attr.statistics?.["provider-data"]?.removed ?? 0,
+    sredni_czas: attr.statistics?.["provider-data"]?.["average-period"] ?? 0,
+    termin: attr.dates?.date || "",
+    data_info: attr.dates?.["date-situation-as-at"] || "",
+  };
+}
 
 function App() {
   const [meta, setMeta] = useState<Meta | null>(null);
@@ -36,42 +56,37 @@ function App() {
         ? filters.wojewodztwo
         : (meta?.wojewodztwa ?? []);
 
-    const allResults: TerminRecord[] = [];
-
     const today = new Date().toISOString().slice(0, 10);
 
-    for (const woj of regions) {
-      const res = await fetch(
-        `${import.meta.env.BASE_URL}dane/${encodeURIComponent(woj)}.json`,
+    // For each province, fetch both case=1 (stabilny) and case=2 (pilny) in parallel
+    const fetches = regions.flatMap((woj) => {
+      const code = getProvinceCode(woj);
+      if (!code) return [];
+      return [1, 2].map((caseType) =>
+        fetchQueues({
+          caseType,
+          province: code,
+          benefit: filters.swiadczenie,
+          locality: filters.miejscowosc || undefined,
+          provider: filters.szpital || undefined,
+        }).catch(() => [] as QueueEntry[]),
       );
-      const data: TerminRecord[] = await res.json();
+    });
 
-      for (const row of data) {
+    const fetchResults = await Promise.all(fetches);
+
+    const allResults: TerminRecord[] = [];
+    for (const entries of fetchResults) {
+      for (const entry of entries) {
+        const record = mapQueueToRecord(entry);
         if (
-          row.termin &&
-          row.termin < today &&
-          /^\d{4}-\d{2}-\d{2}$/.test(row.termin)
+          record.termin &&
+          record.termin < today &&
+          /^\d{4}-\d{2}-\d{2}$/.test(record.termin)
         )
           continue;
-        if (filters.dzieci && !row.dzieci) continue;
-        if (
-          filters.swiadczenie &&
-          !row.sw.toLowerCase().includes(filters.swiadczenie.toLowerCase())
-        )
-          continue;
-        if (
-          filters.miejscowosc &&
-          row.miasto.toLowerCase() !== filters.miejscowosc.toLowerCase()
-        )
-          continue;
-        if (
-          filters.szpital &&
-          !row.swiadczeniodawca
-            .toLowerCase()
-            .includes(filters.szpital.toLowerCase())
-        )
-          continue;
-        allResults.push(row);
+        if (filters.dzieci && !record.dzieci) continue;
+        allResults.push(record);
       }
     }
 

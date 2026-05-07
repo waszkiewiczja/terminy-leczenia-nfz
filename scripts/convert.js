@@ -24,9 +24,9 @@ for (const file of files) {
   const raw = XLSX.utils.sheet_to_json(ws, { header: 1 });
 
   // Skip rows 0 (info), 1 (empty), 2 (column headers) — data starts at row 3
-  const rows = [];
   const cities = new Set();
   const providers = new Set();
+  let rowCount = 0;
 
   for (let i = 3; i < raw.length; i++) {
     const r = raw[i];
@@ -48,33 +48,13 @@ for (const file of files) {
       allProviders.add(provider);
     }
 
-    const komorkaNazwa = String(r[10] || "");
-    const dlaDzieci =
-      /dzieci|dziecięc/i.test(komorkaNazwa) || /dzieci|dziecięc/i.test(service);
-
-    rows.push({
-      sw: service,
-      kat: String(r[6] || "").trim(),
-      kod_sw: String(r[4] || ""),
-      swiadczeniodawca: String(r[8] || "").trim(),
-      komorka: komorkaNazwa.trim(),
-      adres: adres,
-      miasto: city,
-      dzieci: dlaDzieci,
-      oczekujacy: r[12] != null ? Number(r[12]) || 0 : 0,
-      skresleni: r[13] != null ? Number(r[13]) || 0 : 0,
-      sredni_czas: r[14] != null ? Number(r[14]) || 0 : 0,
-      termin: r[15] ? String(r[15]) : "",
-      data_info: r[16] ? String(r[16]) : "",
-    });
+    rowCount++;
   }
 
   meta.wojewodztwa.push(woj);
   meta.cities[woj] = [...cities].sort();
   meta.providers[woj] = [...providers].sort();
-
-  fs.writeFileSync(path.join(OUT_DIR, `${woj}.json`), JSON.stringify(rows));
-  console.log(`  → ${rows.length} rows, ${cities.size} cities`);
+  console.log(`  → ${rowCount} rows, ${cities.size} cities`);
 }
 
 meta.wojewodztwa.sort();
