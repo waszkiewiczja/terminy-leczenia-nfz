@@ -13,7 +13,7 @@ function capitalize(s: string) {
   return s
     .toLowerCase()
     .replace(
-      /(^|[\s\-"'„”‚‘’])(\p{L})/gu,
+      /(^|[\s\-."'„”‚‘’])(\p{L})/gu,
       (_, sep, ch) => sep + ch.toUpperCase(),
     );
 }

@@ -98,7 +98,7 @@ function App() {
             src={`${import.meta.env.BASE_URL}terminy leczenia nfz.jpg`}
             alt="Terminy leczenia NFZ"
           />
-          <h1>Wyszukiwarka Terminów Leczenia NFZ</h1>
+          <h1>Aktualne Terminy Leczenia NFZ</h1>
         </div>
         <p className="app-title-lead">
           Sprawdź aktualne terminy leczenia NFZ w Polsce i znajdź najbliższy

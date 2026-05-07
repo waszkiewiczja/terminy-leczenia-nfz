@@ -3,7 +3,10 @@ import type { TerminRecord } from "./types";
 function capitalize(s: string) {
   return s
     .toLowerCase()
-    .replace(/(^|[\s-])(\p{L})/gu, (_, sep, ch) => sep + ch.toUpperCase());
+    .replace(
+      /(^|[\s\-."'„”‚‘’])(\p{L})/gu,
+      (_, sep, ch) => sep + ch.toUpperCase(),
+    );
 }
 
 function formatDisplayDate(date: string) {
@@ -64,7 +67,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
                   >
                     {r.kat === "PRZYPADEK PILNY" ? "Pilny" : "Stabilny"}
                   </td>
-                  <td>{r.swiadczeniodawca}</td>
+                  <td>{capitalize(r.swiadczeniodawca)}</td>
                   <td className="termin">
                     {r.termin ? formatDisplayDate(r.termin) : "—"}
                   </td>
@@ -123,7 +126,7 @@ export default function ResultsTable({ results, loading }: ResultsTableProps) {
               <div className="card-body">
                 <div className="card-row">
                   <span className="card-label">Placówka</span>
-                  <span>{r.swiadczeniodawca}</span>
+                  <span>{capitalize(r.swiadczeniodawca)}</span>
                 </div>
                 <div className="card-row">
                   <span className="card-label">Komórka</span>
