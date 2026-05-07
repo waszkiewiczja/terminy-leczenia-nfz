@@ -1,11 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type ReactNode } from "react";
 
 interface AutocompleteProps {
   options: string[];
   value: string;
   onChange: (value: string) => void;
   placeholder?: string;
-  label: string;
+  label: ReactNode;
   displayTransform?: (s: string) => string;
 }
 

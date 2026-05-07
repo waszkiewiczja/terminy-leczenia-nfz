@@ -90,6 +90,10 @@
   margin-bottom: 0.3rem;
 }
 
+.required-asterisk {
+  color: #dc2626;
+}
+
 .form-group select,
 .autocomplete input {
   padding: 0.55rem 0.75rem;

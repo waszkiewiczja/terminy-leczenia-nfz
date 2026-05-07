@@ -47,7 +47,10 @@ export default function SearchForm({
     >
       <div className="form-row">
         <div className="form-group">
-          <label>Województwo</label>
+          <label>
+            Województwo
+            <span className="required-asterisk"> *</span>
+          </label>
           <div className="woj-checkboxes">
             {meta.wojewodztwa.map((w) => (
               <label key={w} className="woj-checkbox">
@@ -70,7 +73,12 @@ export default function SearchForm({
 
       <div className="form-row">
         <Autocomplete
-          label="Jakiego świadczenia szukasz?"
+          label={
+            <>
+              Jakiego świadczenia szukasz?
+              <span className="required-asterisk"> *</span>
+            </>
+          }
           options={meta.services}
           value={filters.swiadczenie}
           onChange={(v) => update({ swiadczenie: v })}
