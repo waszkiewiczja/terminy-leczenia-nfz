@@ -60,6 +60,20 @@ export default function Autocomplete({
           }}
           onFocus={() => setOpen(true)}
         />
+        {inputValue && (
+          <button
+            type="button"
+            className="autocomplete-clear"
+            onClick={() => {
+              setInputValue("");
+              onChange("");
+              setOpen(false);
+            }}
+            aria-label="Wyczyść pole"
+          >
+            ×
+          </button>
+        )}
         <button
           type="button"
           className="autocomplete-toggle"
