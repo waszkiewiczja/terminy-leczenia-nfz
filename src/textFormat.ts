@@ -15,7 +15,7 @@ const LEGAL_FORM_PATTERNS: Record<string, RegExp> = {
   S_A: /\bs\.?\s*a\.?\b/giu,
   S_C: /\bs\.?\s*c\.?\b/giu,
   SPOLKA_Z_OO:
-    /\bsp[oó]łka\s+z\s+ograniczon[aą]\s+odpowiedzialno[śs]ci[aą]\b/giu,
+    /sp[oó][łl]ka\s+z\s+ograniczon[aą]\s+odpowiedzialno[śs]ci[aą]/giu,
   SPOLKA_AKCYJNA: /\bsp[oó]łka\s+akcyjna\b/giu,
   SPOLKA_CYWILNA: /\bsp[oó]łka\s+cywilna\b/giu,
   SPOLKA_JAWNA: /\bsp[oó]łka\s+jawna\b/giu,
