@@ -1,3 +1,5 @@
+import { QueueEntry } from "./types";
+
 const API_BASE = "https://api.nfz.gov.pl/app-itl-api";
 
 const PROVINCE_CODES: Record<string, string> = {
@@ -23,38 +25,6 @@ interface ApiResponse<T> {
   meta: { count: number; page: number; limit: number };
   links: { next: string | null };
   data: T[];
-}
-
-export interface QueueAttributes {
-  case: number;
-  benefit: string;
-  provider: string;
-  place: string;
-  address: string;
-  locality: string;
-  phone: string;
-  "benefits-for-children": string | null;
-  "age-range": string | null;
-  statistics: {
-    "provider-data": {
-      awaiting: number;
-      removed: number;
-      "average-period": number;
-      update: string;
-    };
-    "computed-data": null;
-  };
-  dates: {
-    applicable: boolean;
-    date: string;
-    "date-situation-as-at": string;
-  };
-}
-
-export interface QueueEntry {
-  type: string;
-  id: string;
-  attributes: QueueAttributes;
 }
 
 export function getProvinceCode(name: string): string | undefined {

@@ -1,4 +1,5 @@
-import type { TerminRecord } from "./types";
+import { useState } from "react";
+import type { TerminRecord, SearchFilters } from "./types";
 import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
 
 function formatDisplayDate(date: string) {
@@ -12,9 +13,34 @@ function formatDisplayDate(date: string) {
 interface ResultsTableProps {
   results: TerminRecord[];
   loading: boolean;
+  filters: SearchFilters;
 }
 
-export const ResultsTable = ({ results, loading }: ResultsTableProps) => {
+function buildShareUrl(filters: SearchFilters): string {
+  const p = new URLSearchParams();
+  if (filters.swiadczenie) p.set("s", filters.swiadczenie);
+  filters.wojewodztwo.forEach((w) => p.append("w", w));
+  if (filters.miejscowosc) p.set("m", filters.miejscowosc);
+  if (filters.szpital) p.set("p", filters.szpital);
+  if (filters.dzieci) p.set("d", "1");
+  const base = window.location.origin + window.location.pathname;
+  return `${base}?${p.toString()}`;
+}
+
+export const ResultsTable = ({
+  results,
+  loading,
+  filters,
+}: ResultsTableProps) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(buildShareUrl(filters)).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
+
   if (loading) {
     return <div className="results-info">Ładowanie danych...</div>;
   }
@@ -31,9 +57,18 @@ export const ResultsTable = ({ results, loading }: ResultsTableProps) => {
 
   return (
     <div className="results">
-      <p className="results-count">
-        Znaleziono: {results.length} wyników - {displayServiceName}
-      </p>
+      <div className="results-header">
+        <button
+          className="copy-btn"
+          onClick={handleCopy}
+          title="Kopiuj wyniki do schowka"
+        >
+          {copied ? "Skopiowano!" : "Kopiuj"}
+        </button>
+        <p className="results-count">
+          Znaleziono: {results.length} wyników - {displayServiceName}
+        </p>
+      </div>
 
       {/* Desktop table */}
       <div className="table-wrapper desktop-only">

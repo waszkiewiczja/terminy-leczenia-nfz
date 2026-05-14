@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
-import type { Meta, TerminRecord, SearchFilters } from "./types";
+import { useState, useEffect, useCallback, useRef } from "react";
+import type { Meta, TerminRecord, SearchFilters, QueueEntry } from "./types";
 import { AppTitle } from "./AppTitle";
 import { InfoModal } from "./InfoModal";
 import { SearchForm } from "./SearchForm";
 import { ResultsTable } from "./ResultsTable";
-import { fetchQueues, getProvinceCode, type QueueEntry } from "./nfzApi";
+import { fetchQueues, getProvinceCode } from "./nfzApi";
+import { mapQueueToRecord } from "./functions/mapQueueToRecord";
 import "./App.css";
 
 const EMPTY_FILTERS: SearchFilters = {
@@ -15,31 +16,27 @@ const EMPTY_FILTERS: SearchFilters = {
   szpital: "",
 };
 
-function mapQueueToRecord(entry: QueueEntry): TerminRecord {
-  const attr = entry.attributes;
+function filtersFromParams(): SearchFilters | null {
+  const p = new URLSearchParams(window.location.search);
+  if (!p.has("s")) return null;
   return {
-    sw: attr.benefit,
-    kat: attr.case === 2 ? "PRZYPADEK PILNY" : "PRZYPADEK STABILNY",
-    kod_sw: "",
-    swiadczeniodawca: attr.provider,
-    komorka: attr.place,
-    adres: `${attr.locality || ""};${attr.address || ""};${attr.phone || ""}`,
-    miasto: attr.locality || "",
-    dzieci: attr["benefits-for-children"] === "Y",
-    oczekujacy: attr.statistics?.["provider-data"]?.awaiting ?? 0,
-    skresleni: attr.statistics?.["provider-data"]?.removed ?? 0,
-    sredni_czas: attr.statistics?.["provider-data"]?.["average-period"] ?? 0,
-    termin: attr.dates?.date || "",
-    data_info: attr.dates?.["date-situation-as-at"] || "",
+    swiadczenie: p.get("s") ?? "",
+    wojewodztwo: p.getAll("w"),
+    miejscowosc: p.get("m") ?? "",
+    szpital: p.get("p") ?? "",
+    dzieci: p.get("d") === "1",
   };
 }
 
 function App() {
   const [meta, setMeta] = useState<Meta | null>(null);
-  const [filters, setFilters] = useState<SearchFilters>(EMPTY_FILTERS);
+  const [filters, setFilters] = useState<SearchFilters>(
+    () => filtersFromParams() ?? EMPTY_FILTERS,
+  );
   const [results, setResults] = useState<TerminRecord[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const autoSearchDone = useRef(false);
 
   useEffect(() => {
     fetch(`${import.meta.env.BASE_URL}dane/meta.json`)
@@ -100,6 +97,13 @@ function App() {
     setLoading(false);
   }, [filters, meta]);
 
+  useEffect(() => {
+    if (meta && filtersFromParams() && !autoSearchDone.current) {
+      autoSearchDone.current = true;
+      search();
+    }
+  }, [meta, search]);
+
   if (!meta) {
     return <div className="app-loading">Ładowanie...</div>;
   }
@@ -115,7 +119,9 @@ function App() {
         onSearch={search}
         loading={loading}
       />
-      {searched && <ResultsTable results={results} loading={loading} />}
+      {searched && (
+        <ResultsTable results={results} loading={loading} filters={filters} />
+      )}
     </div>
   );
 }

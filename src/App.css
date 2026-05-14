@@ -248,10 +248,44 @@
   font-size: 1rem;
 }
 
+.results-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
 .results-count {
   font-size: 0.9rem;
   color: #475569;
-  margin-bottom: 0.5rem;
+  margin: 0;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.copy-btn:hover {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.copy-btn:active {
+  background: #bfdbfe;
 }
 
 .table-wrapper {

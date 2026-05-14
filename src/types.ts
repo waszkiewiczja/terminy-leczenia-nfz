@@ -30,3 +30,35 @@ export interface SearchFilters {
   miejscowosc: string;
   szpital: string;
 }
+
+export interface QueueAttributes {
+  case: number;
+  benefit: string;
+  provider: string;
+  place: string;
+  address: string;
+  locality: string;
+  phone: string;
+  "benefits-for-children": string | null;
+  "age-range": string | null;
+  statistics: {
+    "provider-data": {
+      awaiting: number;
+      removed: number;
+      "average-period": number;
+      update: string;
+    };
+    "computed-data": null;
+  };
+  dates: {
+    applicable: boolean;
+    date: string;
+    "date-situation-as-at": string;
+  };
+}
+
+export interface QueueEntry {
+  type: string;
+  id: string;
+  attributes: QueueAttributes;
+}
