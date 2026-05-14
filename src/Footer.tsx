@@ -16,14 +16,13 @@ export const Footer = () => {
           rehabilitację, diagnostykę i wiele innych.
         </p>
         <p>
-          Sprawdź <b>terminy leczenia NFZ</b> w swoim regionie — wybierz
+          Sprawdź <b>terminy leczenia NFZ</b> w swoim regionie. Wybierz
           województwo, rodzaj świadczenia lub konkretną placówkę. Wyszukiwarka
           obsługuje wszystkie 16 województw i ponad 470 rodzajów świadczeń
           medycznych.
         </p>
         <p>
-          Dane źródłowe pochodzą z oficjalnego portalu{" "}
-          <em>Informator o terminach leczenia</em> prowadzonego przez NFZ.
+          Dane źródłowe pochodzą z oficjalnego portalu prowadzonego przez NFZ.
         </p>
       </article>
     </footer>
