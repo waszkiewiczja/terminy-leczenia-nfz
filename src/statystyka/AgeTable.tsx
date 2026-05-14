@@ -29,10 +29,14 @@ export function AgeTable({ entry }: { entry: AgeEntry }) {
           <tbody>
             {rows.map((r, i) => (
               <tr key={i}>
-                <td>{r["age-group-name"]}</td>
-                <td className="num">{fmt(r["number-of-hospitalizations"])}</td>
-                <td className="num">{fmtPct(r.percentage)}</td>
-                <td className="num">
+                <td data-label="Grupa wiekowa">{r["age-group-name"]}</td>
+                <td data-label="Hospitalizacje" className="num">
+                  {fmt(r["number-of-hospitalizations"])}
+                </td>
+                <td data-label="Udział (%)" className="num">
+                  {fmtPct(r.percentage)}
+                </td>
+                <td data-label="Mediana pobytu (dni)" className="num">
                   {fmt(r["duration-of-hospitalization-mediana"])}
                 </td>
               </tr>

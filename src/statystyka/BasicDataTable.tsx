@@ -33,29 +33,43 @@ export function BasicDataTable({ entry }: { entry: BasicDataEntry }) {
           <tbody>
             {rows.map((r, i) => (
               <tr key={i}>
-                {hasBranch && <td>{r.branch ?? "–"}</td>}
-                {hasHospitalTypes && <td>{r["hospital-types"] ?? "–"}</td>}
-                <td className="num">{fmt(r["number-of-patients"])}</td>
-                <td className="num">{fmt(r["number-of-hospitalizations"])}</td>
-                <td className="num">
+                {hasBranch && (
+                  <td data-label="Oddział NFZ">{r.branch ?? "–"}</td>
+                )}
+                {hasHospitalTypes && (
+                  <td data-label="Typ szpitala">
+                    {r["hospital-types"] ?? "–"}
+                  </td>
+                )}
+                <td data-label="Pacjenci" className="num">
+                  {fmt(r["number-of-patients"])}
+                </td>
+                <td data-label="Hospitalizacje" className="num">
+                  {fmt(r["number-of-hospitalizations"])}
+                </td>
+                <td data-label="Wsp. rehospitalizacji" className="num">
                   {fmt(r["ratio-of-rehospitalizations"], 2)}
                 </td>
-                <td className="num">{fmtPct(r.percentage)}</td>
-                <td className="num">
+                <td data-label="Udział (%)" className="num">
+                  {fmtPct(r.percentage)}
+                </td>
+                <td data-label="Mediana pobytu (dni)" className="num">
                   {fmt(r["duration-of-hospitalization-mediana"])}
                 </td>
-                <td className="num">
+                <td data-label="Dominanta pobytu (dni)" className="num">
                   {r["duration-of-hospitalization-mode"]
                     ? fmt(r["duration-of-hospitalization-mode"])
                     : "–"}
                 </td>
                 {hasValues && (
-                  <td className="num">
+                  <td data-label="Śr. wartość hosp. (zł)" className="num">
                     {fmt(r["average-value-of-hospitalization"], 2)}
                   </td>
                 )}
                 {hasValues && (
-                  <td className="num">{fmt(r["average-value-of-drg"], 2)}</td>
+                  <td data-label="Śr. wartość grupy (zł)" className="num">
+                    {fmt(r["average-value-of-drg"], 2)}
+                  </td>
                 )}
               </tr>
             ))}

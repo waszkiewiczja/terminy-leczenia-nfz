@@ -21,13 +21,17 @@ export function DiseaseTable({ entry }: { entry: DiseaseEntry }) {
           <tbody>
             {rows.map((r, i) => (
               <tr key={i}>
-                <td>
+                <td data-label="Kod ICD-10">
                   <code>{r["disease-code"]}</code>
                 </td>
-                <td>{r["disease-name"]}</td>
-                <td className="num">{fmt(r["number-of-hospitalizations"])}</td>
-                <td className="num">{fmtPct(r.percentage)}</td>
-                <td className="num">
+                <td data-label="Rozpoznanie">{r["disease-name"]}</td>
+                <td data-label="Hospitalizacje" className="num">
+                  {fmt(r["number-of-hospitalizations"])}
+                </td>
+                <td data-label="Udział (%)" className="num">
+                  {fmtPct(r.percentage)}
+                </td>
+                <td data-label="Mediana pobytu (dni)" className="num">
                   {fmt(r["duration-of-hospitalization-mediana"])}
                 </td>
               </tr>
