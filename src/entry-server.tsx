@@ -4,6 +4,8 @@ import { StaticRouter, Routes, Route, Outlet } from "react-router";
 import App from "./App.tsx";
 import { Statystyka } from "./statystyka/Statystyka.tsx";
 import { Nav } from "./Nav.tsx";
+import { LangProvider } from "./lang/LangContext.tsx";
+import type { Lang } from "./lang/LangContext.tsx";
 
 function Layout() {
   return (
@@ -14,17 +16,21 @@ function Layout() {
   );
 }
 
-export function render(url: string): string {
+export function render(url: string, lang: Lang = "pl"): string {
   return renderToString(
     <StrictMode>
-      <StaticRouter location={url}>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<App />} />
-            <Route path="/statystyka" element={<Statystyka />} />
-          </Route>
-        </Routes>
-      </StaticRouter>
+      <LangProvider lang={lang}>
+        <StaticRouter location={url}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<App />} />
+              <Route path="/statystyka" element={<Statystyka />} />
+              <Route path="/en" element={<App />} />
+              <Route path="/en/statystyka" element={<Statystyka />} />
+            </Route>
+          </Routes>
+        </StaticRouter>
+      </LangProvider>
     </StrictMode>,
   );
 }

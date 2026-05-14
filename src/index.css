@@ -38,6 +38,7 @@ body {
 .app-nav {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 0.25rem;
   padding: 0.6rem 1.5rem;
   background: #fff;
@@ -65,4 +66,78 @@ body {
   background: #eff6ff;
   color: #1a56db;
   font-weight: 600;
+}
+
+.lang-switch {
+  margin-left: 0.75rem;
+  border: 1px solid #cbd5e1;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #64748b !important;
+}
+
+.lang-switch:hover {
+  border-color: #1a56db;
+  color: #1a56db !important;
+  background: #f0f7ff;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid #cbd5e1;
+  border-top-color: #1a56db;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0 0.5rem;
+}
+
+.page-btn {
+  padding: 0.3rem 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  color: #1a56db;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: #f0f7ff;
+  border-color: #1a56db;
+}
+
+.page-btn:disabled {
+  color: #cbd5e1;
+  cursor: default;
+}
+
+.load-more-btn {
+  padding: 0.45rem 2rem;
+  font-size: 0.9rem;
+}
+
+.page-info {
+  font-size: 0.9rem;
+  color: #475569;
+  min-width: 4rem;
+  text-align: center;
 }

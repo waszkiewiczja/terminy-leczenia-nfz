@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { TerminRecord, SearchFilters } from "./types";
 import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
+import { useT } from "./lang/LangContext";
 
 function formatDisplayDate(date: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
@@ -14,6 +15,9 @@ interface ResultsTableProps {
   results: TerminRecord[];
   loading: boolean;
   filters: SearchFilters;
+  hasMoreApi?: boolean;
+  loadingMore?: boolean;
+  onLoadMore?: () => void;
 }
 
 function buildShareUrl(filters: SearchFilters): string {
@@ -31,8 +35,12 @@ export const ResultsTable = ({
   results,
   loading,
   filters,
+  hasMoreApi = false,
+  loadingMore = false,
+  onLoadMore,
 }: ResultsTableProps) => {
   const [copied, setCopied] = useState(false);
+  const t = useT();
 
   const handleCopy = () => {
     navigator.clipboard.writeText(buildShareUrl(filters)).then(() => {
@@ -42,15 +50,16 @@ export const ResultsTable = ({
   };
 
   if (loading) {
-    return <div className="results-info">Ładowanie danych...</div>;
+    return (
+      <div className="results-info">
+        <span className="spinner" />
+        {t.loading}
+      </div>
+    );
   }
 
   if (results.length === 0) {
-    return (
-      <div className="results-info">
-        Brak wyników. Zmień kryteria wyszukiwania.
-      </div>
-    );
+    return <div className="results-info">{t.noResults}</div>;
   }
 
   const displayServiceName = capitalizeWords(results[0].sw);
@@ -58,15 +67,11 @@ export const ResultsTable = ({
   return (
     <div className="results">
       <div className="results-header">
-        <button
-          className="copy-btn"
-          onClick={handleCopy}
-          title="Kopiuj wyniki do schowka"
-        >
-          {copied ? "Skopiowano!" : "Kopiuj"}
+        <button className="copy-btn" onClick={handleCopy} title={t.copyTitle}>
+          {copied ? t.copiedBtn : t.copyBtn}
         </button>
         <p className="results-count">
-          Znaleziono: {results.length} wyników - {displayServiceName}
+          {t.resultsCount(results.length, displayServiceName)}
         </p>
       </div>
 
@@ -75,11 +80,11 @@ export const ResultsTable = ({
         <table>
           <thead>
             <tr>
-              <th>Przypadek</th>
-              <th>Placówka</th>
-              <th>Pierwszy wolny termin</th>
-              <th>Komórka</th>
-              <th>Adres</th>
+              <th>{t.thCase}</th>
+              <th>{t.thFacility}</th>
+              <th>{t.thDate}</th>
+              <th>{t.thUnit}</th>
+              <th>{t.thAddress}</th>
             </tr>
           </thead>
           <tbody>
@@ -94,7 +99,7 @@ export const ResultsTable = ({
                       r.kat === "PRZYPADEK PILNY" ? "pilny" : "stabilny"
                     }
                   >
-                    {r.kat === "PRZYPADEK PILNY" ? "Pilny" : "Stabilny"}
+                    {r.kat === "PRZYPADEK PILNY" ? t.urgent : t.stable}
                   </td>
                   <td>{formatProviderDisplayName(r.swiadczeniodawca)}</td>
                   <td className="termin">
@@ -102,7 +107,9 @@ export const ResultsTable = ({
                   </td>
                   <td>
                     {capitalizeWords(r.komorka)}
-                    {r.dzieci && <span className="badge-dzieci">dzieci</span>}
+                    {r.dzieci && (
+                      <span className="badge-dzieci">{t.children}</span>
+                    )}
                   </td>
                   <td>
                     <a
@@ -146,23 +153,25 @@ export const ResultsTable = ({
                     r.kat === "PRZYPADEK PILNY" ? "pilny" : "stabilny"
                   }`}
                 >
-                  {r.kat === "PRZYPADEK PILNY" ? "Pilny" : "Stabilny"}
+                  {r.kat === "PRZYPADEK PILNY" ? t.urgent : t.stable}
                 </span>
               </div>
               <div className="card-body">
                 <div className="card-row">
-                  <span className="card-label">Placówka</span>
+                  <span className="card-label">{t.thFacility}</span>
                   <span>{formatProviderDisplayName(r.swiadczeniodawca)}</span>
                 </div>
                 <div className="card-row">
-                  <span className="card-label">Komórka</span>
+                  <span className="card-label">{t.thUnit}</span>
                   <span>
                     {capitalizeWords(r.komorka)}
-                    {r.dzieci && <span className="badge-dzieci">dzieci</span>}
+                    {r.dzieci && (
+                      <span className="badge-dzieci">{t.children}</span>
+                    )}
                   </span>
                 </div>
                 <div className="card-row">
-                  <span className="card-label">Adres</span>
+                  <span className="card-label">{t.thAddress}</span>
                   <span>
                     <a
                       className="adres-link"
@@ -179,7 +188,7 @@ export const ResultsTable = ({
                 </div>
                 {telefon && (
                   <div className="card-row">
-                    <span className="card-label">Telefon</span>
+                    <span className="card-label">{t.phone}</span>
                     <span className="telefon">
                       <a href={`tel:${telefon.replace(/\s/g, "")}`}>
                         {telefon}
@@ -192,6 +201,18 @@ export const ResultsTable = ({
           );
         })}
       </div>
+
+      {(hasMoreApi || loadingMore) && (
+        <div className="pagination">
+          <button
+            className="page-btn load-more-btn"
+            onClick={onLoadMore}
+            disabled={loadingMore}
+          >
+            {loadingMore ? <><span className="spinner" />{t.loadingMore}</> : t.loadMore}
+          </button>
+        </div>
+      )}
     </div>
   );
 };

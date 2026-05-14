@@ -27,43 +27,54 @@ interface ApiResponse<T> {
   data: T[];
 }
 
-export function getProvinceCode(name: string): string | undefined {
-  return PROVINCE_CODES[name];
-}
-
-export async function fetchQueues(params: {
+export interface FetchQueuesParams {
   caseType: number;
   province: string;
   benefit: string;
   locality?: string;
   provider?: string;
-}): Promise<QueueEntry[]> {
+}
+
+export function getProvinceCode(name: string): string | undefined {
+  return PROVINCE_CODES[name];
+}
+
+export async function fetchQueuesPage(
+  params: FetchQueuesParams,
+  page: number,
+  limit = 25,
+): Promise<{ entries: QueueEntry[]; hasMore: boolean }> {
+  const searchParams = new URLSearchParams({
+    page: String(page),
+    limit: String(limit),
+    format: "json",
+    case: String(params.caseType),
+    province: params.province,
+    benefit: params.benefit,
+  });
+  if (params.locality) searchParams.set("locality", params.locality);
+  if (params.provider) searchParams.set("provider", params.provider);
+
+  const url = `${API_BASE}/queues?${searchParams}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Queues API error: ${res.status}`);
+  const data: ApiResponse<QueueEntry> = await res.json();
+  return {
+    entries: data.data,
+    hasMore: !!data.links.next,
+  };
+}
+
+/** Legacy: fetch all pages (used by prerender/scripts) */
+export async function fetchQueues(params: FetchQueuesParams): Promise<QueueEntry[]> {
   const all: QueueEntry[] = [];
   let page = 1;
   const limit = 25;
-
   while (true) {
-    const searchParams = new URLSearchParams({
-      page: String(page),
-      limit: String(limit),
-      format: "json",
-      case: String(params.caseType),
-      province: params.province,
-      benefit: params.benefit,
-    });
-
-    if (params.locality) searchParams.set("locality", params.locality);
-    if (params.provider) searchParams.set("provider", params.provider);
-
-    const url = `${API_BASE}/queues?${searchParams}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`Queues API error: ${res.status}`);
-    const data: ApiResponse<QueueEntry> = await res.json();
-    all.push(...data.data);
-
-    if (!data.links.next || data.data.length < limit) break;
+    const { entries, hasMore } = await fetchQueuesPage(params, page, limit);
+    all.push(...entries);
+    if (!hasMore) break;
     page++;
   }
-
   return all;
 }

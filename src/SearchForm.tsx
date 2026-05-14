@@ -1,6 +1,7 @@
 import type { Meta, SearchFilters } from "./types";
 import Autocomplete from "./Autocomplete";
 import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
+import { useT } from "./lang/LangContext";
 
 interface SearchFormProps {
   meta: Meta;
@@ -17,6 +18,7 @@ export const SearchForm = ({
   onSearch,
   loading,
 }: SearchFormProps) => {
+  const t = useT();
   const update = (patch: Partial<SearchFilters>) => {
     onFiltersChange({ ...filters, ...patch });
   };
@@ -48,7 +50,7 @@ export const SearchForm = ({
       <div className="form-row">
         <div className="form-group">
           <label>
-            Województwo
+            {t.labelWojewodztwo}
             <span className="required-asterisk"> *</span>
           </label>
           <div className="woj-checkboxes">
@@ -75,36 +77,36 @@ export const SearchForm = ({
         <Autocomplete
           label={
             <>
-              Jakiego świadczenia szukasz?
+              {t.labelSwiadczenie}
               <span className="required-asterisk"> *</span>
             </>
           }
           options={meta.services}
           value={filters.swiadczenie}
           onChange={(v) => update({ swiadczenie: v })}
-          placeholder="Wpisz lub wybierz z listy..."
+          placeholder={t.placeholder}
           displayTransform={capitalizeWords}
         />
       </div>
 
       <div className="form-row">
         <Autocomplete
-          label="Miejscowość"
+          label={t.labelMiejscowosc}
           options={cities}
           value={filters.miejscowosc}
           onChange={(v) => update({ miejscowosc: v })}
-          placeholder="Wpisz lub wybierz z listy..."
+          placeholder={t.placeholder}
           displayTransform={capitalizeWords}
         />
       </div>
 
       <div className="form-row">
         <Autocomplete
-          label="Placówka"
+          label={t.labelPlacowka}
           options={providersList}
           value={filters.szpital}
           onChange={(v) => update({ szpital: v })}
-          placeholder="Wpisz lub wybierz z listy..."
+          placeholder={t.placeholder}
           displayTransform={formatProviderDisplayName}
         />
       </div>
@@ -117,7 +119,7 @@ export const SearchForm = ({
               checked={filters.dzieci}
               onChange={(e) => update({ dzieci: e.target.checked })}
             />
-            Świadczenia udzielane dzieciom
+            {t.labelDzieci}
           </label>
         </div>
       </div>
@@ -127,7 +129,7 @@ export const SearchForm = ({
         className="btn-search"
         disabled={loading || !filters.swiadczenie}
       >
-        {loading ? "Szukam..." : "Szukaj"}
+        {loading ? t.btnSearching : t.btnSearch}
       </button>
     </form>
   );

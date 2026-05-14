@@ -1,4 +1,36 @@
+import { useLang } from "./lang/LangContext";
+
 export const Footer = () => {
+  const lang = useLang();
+
+  if (lang === "en") {
+    return (
+      <footer className="site-footer">
+        <article>
+          <h2>NFZ Treatment Dates – Current Data</h2>
+          <p>
+            The <b>NFZ treatment dates</b> service lets you quickly search
+            available appointment and procedure dates covered by the National
+            Health Fund (NFZ). Data is fetched directly from the NFZ portal and
+            updated continuously.
+          </p>
+          <p>
+            Using our <b>NFZ treatment date</b> search engine you can compare
+            waiting times for medical services across different facilities and
+            provinces. Find the next available specialist appointments, surgical
+            procedures, rehabilitation, diagnostics, and more.
+          </p>
+          <p>
+            Check <b>NFZ treatment dates</b> in your region. Select a province,
+            type of service, or a specific facility. The search engine covers
+            all 16 provinces and over 470 types of medical services.
+          </p>
+          <p>Source data comes from the official portal maintained by NFZ.</p>
+        </article>
+      </footer>
+    );
+  }
+
   return (
     <footer className="site-footer">
       <article>
