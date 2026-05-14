@@ -1,4 +1,4 @@
-import { QueueEntry } from "./types";
+import { QueueEntry } from "../types";
 
 const API_BASE = "https://api.nfz.gov.pl/app-itl-api";
 

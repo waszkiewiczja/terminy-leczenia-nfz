@@ -4,8 +4,10 @@ import { AppTitle } from "./AppTitle";
 import { Footer } from "./Footer";
 import { SearchForm } from "./SearchForm";
 import { ResultsTable } from "./ResultsTable";
-import { fetchQueues, getProvinceCode } from "./nfzApi";
 import { mapQueueToRecord } from "./functions/mapQueueToRecord";
+import { filtersFromParams } from "./functions/filtersFromParams";
+import { fetchQueues, getProvinceCode } from "./api/nfzApi";
+import metaJson from "../public/dane/meta.json";
 import "./App.css";
 
 const EMPTY_FILTERS: SearchFilters = {
@@ -16,20 +18,9 @@ const EMPTY_FILTERS: SearchFilters = {
   szpital: "",
 };
 
-function filtersFromParams(): SearchFilters | null {
-  const p = new URLSearchParams(window.location.search);
-  if (!p.has("s")) return null;
-  return {
-    swiadczenie: p.get("s") ?? "",
-    wojewodztwo: p.getAll("w"),
-    miejscowosc: p.get("m") ?? "",
-    szpital: p.get("p") ?? "",
-    dzieci: p.get("d") === "1",
-  };
-}
+const meta: Meta = metaJson;
 
 function App() {
-  const [meta, setMeta] = useState<Meta | null>(null);
   const [filters, setFilters] = useState<SearchFilters>(
     () => filtersFromParams() ?? EMPTY_FILTERS,
   );
@@ -38,20 +29,12 @@ function App() {
   const [searched, setSearched] = useState(false);
   const autoSearchDone = useRef(false);
 
-  useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}dane/meta.json`)
-      .then((r) => r.json())
-      .then(setMeta);
-  }, []);
-
   const search = useCallback(async () => {
     setLoading(true);
     setSearched(true);
 
     const regions =
-      filters.wojewodztwo.length > 0
-        ? filters.wojewodztwo
-        : (meta?.wojewodztwa ?? []);
+      filters.wojewodztwo.length > 0 ? filters.wojewodztwo : meta.wojewodztwa;
 
     const today = new Date().toISOString().slice(0, 10);
 
@@ -95,18 +78,14 @@ function App() {
 
     setResults(allResults);
     setLoading(false);
-  }, [filters, meta]);
+  }, [filters]);
 
   useEffect(() => {
-    if (meta && filtersFromParams() && !autoSearchDone.current) {
+    if (filtersFromParams() && !autoSearchDone.current) {
       autoSearchDone.current = true;
       search();
     }
-  }, [meta, search]);
-
-  if (!meta) {
-    return <div className="app-loading">Ładowanie...</div>;
-  }
+  }, [search]);
 
   return (
     <div className="app">
