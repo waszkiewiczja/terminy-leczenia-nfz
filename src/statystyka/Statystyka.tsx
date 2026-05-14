@@ -4,7 +4,6 @@ import {
   type Benefit,
   type IndexYear,
 } from "../api/nfzStatApi";
-import { AppTitle } from "../AppTitle";
 import { BenefitSearch } from "./BenefitSearch";
 import { YearView } from "./YearView";
 import "./Statystyka.css";

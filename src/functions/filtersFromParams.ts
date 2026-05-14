@@ -1,3 +1,5 @@
+import type { SearchFilters } from "../types";
+
 export function filtersFromParams(): SearchFilters | null {
   if (typeof window === "undefined") return null;
   const p = new URLSearchParams(window.location.search);
