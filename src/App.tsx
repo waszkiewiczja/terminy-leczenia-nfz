@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import type { Meta, TerminRecord, SearchFilters, QueueEntry } from "./types";
 import { AppTitle } from "./AppTitle";
-import { InfoModal } from "./InfoModal";
+import { Footer } from "./Footer";
 import { SearchForm } from "./SearchForm";
 import { ResultsTable } from "./ResultsTable";
 import { fetchQueues, getProvinceCode } from "./nfzApi";
@@ -111,7 +111,6 @@ function App() {
   return (
     <div className="app">
       <AppTitle />
-      <InfoModal />
       <SearchForm
         meta={meta}
         filters={filters}
@@ -122,6 +121,7 @@ function App() {
       {searched && (
         <ResultsTable results={results} loading={loading} filters={filters} />
       )}
+      <Footer />
     </div>
   );
 }
