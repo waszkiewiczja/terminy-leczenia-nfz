@@ -1,13 +1,20 @@
 import { useLang } from "./lang/LangContext";
+import "./Footer.css";
 
 export const Footer = () => {
   const lang = useLang();
+  const footerLogoSrc = `${import.meta.env.BASE_URL}terminy leczenia nfz.jpg`;
 
   if (lang === "en") {
     return (
       <footer className="site-footer">
         <article>
           <h2>NFZ Treatment Dates – Current Data</h2>
+          <img
+            className="site-footer-logo"
+            src={footerLogoSrc}
+            alt="Terminy leczenia NFZ"
+          />
           <p>
             The <b>NFZ treatment dates</b> service lets you quickly search
             available appointment and procedure dates covered by the National
@@ -35,6 +42,11 @@ export const Footer = () => {
     <footer className="site-footer">
       <article>
         <h2>Terminy leczenia NFZ aktualne dane</h2>
+        <img
+          className="site-footer-logo"
+          src={footerLogoSrc}
+          alt="Terminy leczenia NFZ"
+        />
         <p>
           Serwis <b>terminy leczenia NFZ</b> umożliwia szybkie wyszukiwanie
           dostępnych terminów wizyt i zabiegów w ramach NFZ. Dane są pobierane

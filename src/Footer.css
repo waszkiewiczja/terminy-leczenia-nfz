@@ -1,0 +1,38 @@
+/* Footer */
+.site-footer {
+  margin-top: 8rem;
+  padding: 2rem 1.5rem;
+  border-top: 3px solid #e2e8f0;
+  background: #ffffff;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.site-footer article {
+  max-width: 72ch;
+  margin: 0 auto;
+}
+
+.site-footer h2 {
+  font-size: 1rem;
+  color: #1e293b;
+  margin: 0 0 0.75rem;
+}
+
+.site-footer-logo {
+  display: block;
+  width: min(100%, 260px);
+  height: auto;
+  margin: 0 auto 1rem;
+}
+
+.site-footer p {
+  font-size: 0.85rem;
+  color: #64748b;
+  line-height: 1.7;
+  margin: 0 0 0.5rem;
+}
+
+.site-footer p:last-child {
+  margin-bottom: 0;
+}

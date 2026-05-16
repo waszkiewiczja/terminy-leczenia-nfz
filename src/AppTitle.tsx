@@ -12,7 +12,7 @@ export const AppTitle = () => {
         <a href={homeHref}>
           <img
             className="app-title-logo"
-            src={`${import.meta.env.BASE_URL}terminy leczenia nfz.jpg`}
+            src={`${import.meta.env.BASE_URL}logo.jpg`}
             alt={t.appAlt}
           />
         </a>

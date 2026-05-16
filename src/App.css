@@ -558,29 +558,3 @@ td.stabilny {
     color: #1a56db;
   }
 }
-
-/* Footer */
-.site-footer {
-  margin-top: 8rem;
-  padding: 2rem 1.5rem;
-  border-top: 1px solid #e2e8f0;
-  background: #f8fafc;
-  border-radius: 12px;
-}
-
-.site-footer h2 {
-  font-size: 1rem;
-  color: #1e293b;
-  margin: 0 0 0.75rem;
-}
-
-.site-footer p {
-  font-size: 0.85rem;
-  color: #64748b;
-  line-height: 1.7;
-  margin: 0 0 0.5rem;
-}
-
-.site-footer p:last-child {
-  margin-bottom: 0;
-}

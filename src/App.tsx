@@ -51,6 +51,28 @@ function sortResults(arr: TerminRecord[]): TerminRecord[] {
   });
 }
 
+function toTitleCase(value: string): string {
+  return value
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+}
+
+function setMetaTag(
+  attr: "name" | "property",
+  key: string,
+  value: string,
+): void {
+  if (typeof document === "undefined") return;
+  const selector = `meta[${attr}="${key}"]`;
+  const tag = document.querySelector<HTMLMetaElement>(selector);
+  if (tag) {
+    tag.setAttribute("content", value);
+  }
+}
+
 function App() {
   const [filters, setFilters] = useState<SearchFilters>(
     () => filtersFromParams() ?? EMPTY_FILTERS,
@@ -66,19 +88,26 @@ function App() {
   const today = new Date().toISOString().slice(0, 10);
 
   function filterRecord(record: TerminRecord, f: SearchFilters): boolean {
-    if (record.termin && record.termin < today && /^\d{4}-\d{2}-\d{2}$/.test(record.termin))
+    if (
+      record.termin &&
+      record.termin < today &&
+      /^\d{4}-\d{2}-\d{2}$/.test(record.termin)
+    )
       return false;
     if (f.dzieci && !record.dzieci) return false;
     return true;
   }
 
-  async function fetchPage(combos: ComboState[], f: SearchFilters): Promise<{ records: TerminRecord[]; updatedCombos: ComboState[] }> {
+  async function fetchPage(
+    combos: ComboState[],
+    f: SearchFilters,
+  ): Promise<{ records: TerminRecord[]; updatedCombos: ComboState[] }> {
     const fetches = combos
       .filter((c) => c.hasMore)
       .map((c) =>
         fetchQueuesPage(c.params, c.page)
           .then((res) => ({ combo: c, res }))
-          .catch(() => ({ combo: c, res: { entries: [], hasMore: false } }))
+          .catch(() => ({ combo: c, res: { entries: [], hasMore: false } })),
       );
 
     const settled = await Promise.all(fetches);
@@ -119,7 +148,10 @@ function App() {
 
   const loadMore = useCallback(async () => {
     setLoadingMore(true);
-    const { records, updatedCombos } = await fetchPage(combosRef.current, filters);
+    const { records, updatedCombos } = await fetchPage(
+      combosRef.current,
+      filters,
+    );
     combosRef.current = updatedCombos;
     setResults((prev) => sortResults([...prev, ...records]));
     setHasMoreApi(updatedCombos.some((c) => c.hasMore));
@@ -132,6 +164,25 @@ function App() {
       search();
     }
   }, [search]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get("s")?.trim() ?? "";
+    const province = params.get("w")?.trim() ?? "";
+
+    if (!service) return;
+
+    const parts = [toTitleCase(service)];
+    if (province) parts.push(toTitleCase(province));
+
+    const dynamicTitle = `${parts.join(" ")} - Terminy Leczenia NFZ`;
+    document.title = dynamicTitle;
+
+    setMetaTag("property", "og:title", dynamicTitle);
+    setMetaTag("name", "twitter:title", dynamicTitle);
+  }, []);
 
   return (
     <div className="app">
