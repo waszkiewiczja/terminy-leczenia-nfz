@@ -7,7 +7,7 @@ export const en: typeof pl = {
   langSwitch: "PL",
 
   // AppTitle
-  appAlt: "NFZ Treatment Dates",
+  appAlt: "Terminy leczenia NFZ",
   appH1: "Current NFZ Treatment Dates",
   appLead:
     "Check current NFZ treatment dates in Poland and find the nearest available appointment or procedure by service, province, city, or facility.",
