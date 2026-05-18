@@ -1,3 +1,4 @@
+import { PartnersModalTrigger } from "./PartnersModalTrigger.tsx";
 import { useLang } from "./lang/LangContext";
 import "./Footer.css";
 
@@ -33,6 +34,7 @@ export const Footer = () => {
             all 16 provinces and over 470 types of medical services.
           </p>
           <p>Source data comes from the official portal maintained by NFZ.</p>
+          <PartnersModalTrigger />
         </article>
       </footer>
     );
@@ -68,6 +70,7 @@ export const Footer = () => {
         <p>
           Dane źródłowe pochodzą z oficjalnego portalu prowadzonego przez NFZ.
         </p>
+        <PartnersModalTrigger />
       </article>
     </footer>
   );
