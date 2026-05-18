@@ -1,7 +1,33 @@
 import type { Meta, SearchFilters } from "./types";
 import Autocomplete from "./Autocomplete";
 import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
-import { useT } from "./lang/LangContext";
+import { useLang, useT } from "./lang/LangContext";
+
+const EN_PROVINCE_NAMES: Record<string, string> = {
+  DOLNOŚLĄSKIE: "Lower Silesian",
+  "KUJAWSKO-POMORSKIE": "Kuyavian-Pomeranian",
+  LUBELSKIE: "Lublin",
+  LUBUSKIE: "Lubusz",
+  ŁÓDZKIE: "Łódź",
+  MAŁOPOLSKIE: "Lesser Poland",
+  MAZOWIECKIE: "Masovian",
+  OPOLSKIE: "Opole",
+  PODKARPACKIE: "Subcarpathian",
+  PODLASKIE: "Podlaskie",
+  POMORSKIE: "Pomeranian",
+  ŚLĄSKIE: "Silesian",
+  ŚWIĘTOKRZYSKIE: "Holy Cross",
+  "WARMIŃSKO-MAZURSKIE": "Warmian-Masurian",
+  WIELKOPOLSKIE: "Greater Poland",
+  ZACHODNIOPOMORSKIE: "West Pomeranian",
+};
+
+function formatProvinceName(name: string, lang: "pl" | "en"): string {
+  if (lang === "en") {
+    return EN_PROVINCE_NAMES[name] ?? capitalizeWords(name);
+  }
+  return capitalizeWords(name);
+}
 
 interface SearchFormProps {
   meta: Meta;
@@ -18,6 +44,7 @@ export const SearchForm = ({
   onSearch,
   loading,
 }: SearchFormProps) => {
+  const lang = useLang();
   const t = useT();
   const update = (patch: Partial<SearchFilters>) => {
     onFiltersChange({ ...filters, ...patch });
@@ -66,7 +93,7 @@ export const SearchForm = ({
                     update({ wojewodztwo: next, miejscowosc: "" });
                   }}
                 />
-                {capitalizeWords(w)}
+                {formatProvinceName(w, lang)}
               </label>
             ))}
           </div>
