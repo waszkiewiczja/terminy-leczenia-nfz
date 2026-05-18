@@ -114,3 +114,12 @@
 .site-footer-badges-grid img {
   display: block;
 }
+
+.site-footer-muted-link {
+  color: #f1f5f9;
+  text-decoration: none;
+}
+
+.site-footer-muted-link:hover {
+  color: #cbd5e1;
+}
