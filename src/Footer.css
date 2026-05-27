@@ -123,3 +123,25 @@
 .site-footer-muted-link:hover {
   color: #cbd5e1;
 }
+
+.site-footer-legal-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.site-footer-legal-links a {
+  color: #1a56db;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.site-footer-legal-links a:hover {
+  text-decoration: underline;
+}
+
+.site-footer-legal-links span {
+  color: #94a3b8;
+}

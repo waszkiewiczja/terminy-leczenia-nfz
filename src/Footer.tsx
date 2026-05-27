@@ -1,4 +1,5 @@
 import { useLang } from "./lang/LangContext";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 export const Footer = () => {
@@ -33,6 +34,13 @@ export const Footer = () => {
             all 16 provinces and over 470 types of medical services.
           </p>
           <p>Source data comes from the official portal maintained by NFZ.</p>
+          <p className="site-footer-legal-links">
+            <Link to="/en/regulamin">Terms of service</Link>
+            <span aria-hidden="true">|</span>
+            <Link to="/en/polityka-prywatnosci">Privacy policy</Link>
+            <span aria-hidden="true">|</span>
+            <Link to="/en/kontakt">Contact</Link>
+          </p>
         </article>
       </footer>
     );
@@ -67,6 +75,13 @@ export const Footer = () => {
         </p>
         <p>
           Dane źródłowe pochodzą z oficjalnego portalu prowadzonego przez NFZ.
+        </p>
+        <p className="site-footer-legal-links">
+          <Link to="/regulamin">Regulamin</Link>
+          <span aria-hidden="true">|</span>
+          <Link to="/polityka-prywatnosci">Polityka prywatnosci</Link>
+          <span aria-hidden="true">|</span>
+          <Link to="/kontakt">Kontakt</Link>
         </p>
         <p>
           <a

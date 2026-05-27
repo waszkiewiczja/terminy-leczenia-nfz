@@ -7,14 +7,22 @@ const distDir = path.resolve(__dirname, "../dist");
 
 const template = fs.readFileSync(path.resolve(distDir, "index.html"), "utf-8");
 
-const serverEntry = pathToFileURL(path.resolve(distDir, "server/entry-server.js")).href;
+const serverEntry = pathToFileURL(
+  path.resolve(distDir, "server/entry-server.js"),
+).href;
 const { render } = await import(serverEntry);
 
 const routes = [
   { url: "/", lang: "pl" },
   { url: "/statystyka", lang: "pl" },
+  { url: "/regulamin", lang: "pl" },
+  { url: "/polityka-prywatnosci", lang: "pl" },
+  { url: "/kontakt", lang: "pl" },
   { url: "/en", lang: "en" },
   { url: "/en/statystyka", lang: "en" },
+  { url: "/en/regulamin", lang: "en" },
+  { url: "/en/polityka-prywatnosci", lang: "en" },
+  { url: "/en/kontakt", lang: "en" },
 ];
 
 for (const { url, lang } of routes) {
