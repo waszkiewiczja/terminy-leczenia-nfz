@@ -45,9 +45,9 @@ function buildCombos(filters: SearchFilters): FetchQueuesParams[] {
 
 function sortResults(arr: TerminRecord[]): TerminRecord[] {
   return [...arr].sort((a, b) => {
-    const da = a.termin || "\uffff";
-    const db = b.termin || "\uffff";
-    return da.localeCompare(db);
+    const queueA = a.kolejka ?? Number.POSITIVE_INFINITY;
+    const queueB = b.kolejka ?? Number.POSITIVE_INFINITY;
+    return queueA - queueB;
   });
 }
 
@@ -85,15 +85,7 @@ function App() {
   const autoSearchDone = useRef(false);
   const combosRef = useRef<ComboState[]>([]);
 
-  const today = new Date().toISOString().slice(0, 10);
-
   function filterRecord(record: TerminRecord, f: SearchFilters): boolean {
-    if (
-      record.termin &&
-      record.termin < today &&
-      /^\d{4}-\d{2}-\d{2}$/.test(record.termin)
-    )
-      return false;
     if (f.dzieci && !record.dzieci) return false;
     return true;
   }

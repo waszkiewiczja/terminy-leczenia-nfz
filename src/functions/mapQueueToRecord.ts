@@ -1,5 +1,11 @@
 import { QueueEntry, TerminRecord } from "../types";
 
+function parseWaitingDays(value: string | null | undefined): number | null {
+  if (!value) return null;
+  const days = Number.parseInt(value, 10);
+  return Number.isFinite(days) ? days : null;
+}
+
 export const mapQueueToRecord = (entry: QueueEntry): TerminRecord => {
   const attr = entry.attributes;
   return {
@@ -14,7 +20,7 @@ export const mapQueueToRecord = (entry: QueueEntry): TerminRecord => {
     oczekujacy: attr.statistics?.["provider-data"]?.awaiting ?? 0,
     skresleni: attr.statistics?.["provider-data"]?.removed ?? 0,
     sredni_czas: attr.statistics?.["provider-data"]?.["average-period"] ?? 0,
-    termin: attr.dates?.date || "",
+    kolejka: parseWaitingDays(attr.dates?.pcus),
     data_info: attr.dates?.["date-situation-as-at"] || "",
   };
 };
