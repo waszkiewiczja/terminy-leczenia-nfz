@@ -3,14 +3,6 @@ import type { TerminRecord, SearchFilters } from "./types";
 import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
 import { useT } from "./lang/LangContext";
 
-function formatDisplayDate(date: string) {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
-    return date;
-  }
-  const [yyyy, mm, dd] = date.split("-");
-  return `${dd}-${mm}-${yyyy}`;
-}
-
 interface ResultsTableProps {
   results: TerminRecord[];
   loading: boolean;
@@ -82,7 +74,7 @@ export const ResultsTable = ({
             <tr>
               <th>{t.thCase}</th>
               <th>{t.thFacility}</th>
-              <th>{t.thDate}</th>
+              <th>{t.thQueue}</th>
               <th>{t.thUnit}</th>
               <th>{t.thAddress}</th>
             </tr>
@@ -102,9 +94,7 @@ export const ResultsTable = ({
                     {r.kat === "PRZYPADEK PILNY" ? t.urgent : t.stable}
                   </td>
                   <td>{formatProviderDisplayName(r.swiadczeniodawca)}</td>
-                  <td className="termin">
-                    {r.termin ? formatDisplayDate(r.termin) : "—"}
-                  </td>
+                  <td className="termin">{t.queueDays(r.sredni_czas)}</td>
                   <td>
                     {capitalizeWords(r.komorka)}
                     {r.dzieci && (
@@ -147,7 +137,7 @@ export const ResultsTable = ({
           return (
             <div className="result-card" key={i}>
               <div className="card-termin">
-                <span>{r.termin ? formatDisplayDate(r.termin) : "—"}</span>
+                <span>{t.queueDays(r.sredni_czas)}</span>
                 <span
                   className={`card-badge ${
                     r.kat === "PRZYPADEK PILNY" ? "pilny" : "stabilny"
@@ -209,7 +199,14 @@ export const ResultsTable = ({
             onClick={onLoadMore}
             disabled={loadingMore}
           >
-            {loadingMore ? <><span className="spinner" />{t.loadingMore}</> : t.loadMore}
+            {loadingMore ? (
+              <>
+                <span className="spinner" />
+                {t.loadingMore}
+              </>
+            ) : (
+              t.loadMore
+            )}
           </button>
         </div>
       )}
