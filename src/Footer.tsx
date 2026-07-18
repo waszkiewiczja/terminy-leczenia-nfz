@@ -74,8 +74,7 @@ export const Footer = () => {
           medycznych.
         </p>
         <p>
-          Dane źródłowe pochodzą z oficjalnego portalu prowadzonego przez NFZ
-          https://api.nfz.gov.pl/.
+          Dane źródłowe pochodzą z oficjalnego portalu prowadzonego przez NFZ.
         </p>
         <p className="site-footer-legal-links">
           <Link to="/regulamin">Regulamin</Link>

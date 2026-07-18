@@ -10,7 +10,7 @@ export interface TerminRecord {
   oczekujacy: number;
   skresleni: number;
   sredni_czas: number; // Średni czas oczekiwania (dni)
-  kolejka: number | null; // Prognozowany czas oczekiwania (dni)
+  termin: string; // Pierwszy wolny termin (data)
   data_info: string;
 }
 
@@ -52,7 +52,7 @@ export interface QueueAttributes {
   };
   dates: {
     applicable: boolean;
-    pcus: string | null;
+    date: string;
     "date-situation-as-at": string;
   };
 }

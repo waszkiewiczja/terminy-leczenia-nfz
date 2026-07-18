@@ -1,6 +1,6 @@
 import { QueueEntry } from "../types";
 
-const API_BASE = "https://apinfz.nfz.gov.pl/app-itl-api-pcus";
+const API_BASE = "https://api.nfz.gov.pl/app-itl-api";
 
 const PROVINCE_CODES: Record<string, string> = {
   DOLNOŚLĄSKIE: "01",
@@ -66,9 +66,7 @@ export async function fetchQueuesPage(
 }
 
 /** Legacy: fetch all pages (used by prerender/scripts) */
-export async function fetchQueues(
-  params: FetchQueuesParams,
-): Promise<QueueEntry[]> {
+export async function fetchQueues(params: FetchQueuesParams): Promise<QueueEntry[]> {
   const all: QueueEntry[] = [];
   let page = 1;
   const limit = 25;
