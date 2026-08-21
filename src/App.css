@@ -390,8 +390,14 @@ td.stabilny {
   text-decoration: none;
 }
 
-.adres-link:hover {
+.adres-link:hover,
+.facility-link:hover {
   color: #1a56db;
+}
+
+.facility-link {
+  color: inherit;
+  text-decoration: none;
 }
 
 /* Mobile cards - hidden on desktop */

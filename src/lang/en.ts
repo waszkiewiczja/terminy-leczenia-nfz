@@ -15,10 +15,10 @@ export const en: typeof pl = {
   // SearchForm
   labelWojewodztwo: "Province",
   labelSwiadczenie: "What service are you looking for?",
-  labelMiejscowosc: "City",
-  labelPlacowka: "Facility",
+  labelMiejscowosc: "City (optional)",
+  labelPlacowka: "Facility (optional)",
   placeholder: "Type or select from list...",
-  labelDzieci: "Services for children",
+  labelDzieci: "Services for children (optional)",
   btnSearch: "Search",
   btnSearching: "Searching...",
 

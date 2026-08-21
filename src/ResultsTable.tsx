@@ -93,7 +93,18 @@ export const ResultsTable = ({
                   >
                     {r.kat === "PRZYPADEK PILNY" ? t.urgent : t.stable}
                   </td>
-                  <td>{formatProviderDisplayName(r.swiadczeniodawca)}</td>
+                  <td>
+                    <a
+                      className="facility-link"
+                      href={`https://www.google.com/search?q=${encodeURIComponent(
+                        `${formatProviderDisplayName(r.swiadczeniodawca)} ${capitalizeWords(r.miasto)}`,
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {formatProviderDisplayName(r.swiadczeniodawca)}
+                    </a>
+                  </td>
                   <td className="termin">{t.queueDays(r.sredni_czas)}</td>
                   <td>
                     {capitalizeWords(r.komorka)}
@@ -149,7 +160,18 @@ export const ResultsTable = ({
               <div className="card-body">
                 <div className="card-row">
                   <span className="card-label">{t.thFacility}</span>
-                  <span>{formatProviderDisplayName(r.swiadczeniodawca)}</span>
+                  <span>
+                    <a
+                      className="facility-link"
+                      href={`https://www.google.com/search?q=${encodeURIComponent(
+                        `${formatProviderDisplayName(r.swiadczeniodawca)} ${capitalizeWords(r.miasto)}`,
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {formatProviderDisplayName(r.swiadczeniodawca)}
+                    </a>
+                  </span>
                 </div>
                 <div className="card-row">
                   <span className="card-label">{t.thUnit}</span>

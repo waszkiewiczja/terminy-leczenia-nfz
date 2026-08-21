@@ -13,10 +13,10 @@ export const pl = {
   // SearchForm
   labelWojewodztwo: "Województwo",
   labelSwiadczenie: "Jakiego świadczenia szukasz?",
-  labelMiejscowosc: "Miejscowość",
-  labelPlacowka: "Placówka",
+  labelMiejscowosc: "Miejscowość (opcjonalne)",
+  labelPlacowka: "Placówka (opcjonalne)",
   placeholder: "Wpisz lub wybierz z listy...",
-  labelDzieci: "Świadczenia udzielane dzieciom",
+  labelDzieci: "Świadczenia udzielane dzieciom (opcjonalne)",
   btnSearch: "Szukaj",
   btnSearching: "Szukam...",
 
