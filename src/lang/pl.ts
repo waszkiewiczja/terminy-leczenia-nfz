@@ -23,9 +23,9 @@ export const pl = {
   // ResultsTable
   loading: "Ładowanie danych...",
   noResults: "Brak wyników. Zmień kryteria wyszukiwania.",
-  copyBtn: "Kopiuj",
+  copyBtn: "Kopiuj (udostępnij)",
   copiedBtn: "Skopiowano!",
-  copyTitle: "Kopiuj wyniki do schowka",
+  copyTitle: "Kopiuj wyszukiwanie",
   resultsCount: (n: number, name: string) =>
     `Znaleziono: ${n} wyników - ${name}`,
   thCase: "Przypadek",
