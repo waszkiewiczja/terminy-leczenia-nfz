@@ -475,6 +475,12 @@ td.stabilny {
   font-size: 0.82rem;
 }
 
+.facility-link {
+  font-size: 1.1em;
+  font-weight: 800;
+  line-height: 1;
+}
+
 .card-label {
   font-size: 0.7rem;
   font-weight: 600;
