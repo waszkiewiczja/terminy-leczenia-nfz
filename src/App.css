@@ -396,8 +396,12 @@ td.stabilny {
 }
 
 .facility-link {
-  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.35rem;
+  color: #1a56db;
   text-decoration: none;
+  font-size: 0.9em;
 }
 
 /* Mobile cards - hidden on desktop */

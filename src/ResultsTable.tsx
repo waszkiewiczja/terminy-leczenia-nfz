@@ -94,6 +94,9 @@ export const ResultsTable = ({
                     {r.kat === "PRZYPADEK PILNY" ? t.urgent : t.stable}
                   </td>
                   <td>
+                    <span className="facility-name">
+                      {formatProviderDisplayName(r.swiadczeniodawca)}
+                    </span>
                     <a
                       className="facility-link"
                       href={`https://www.google.com/search?q=${encodeURIComponent(
@@ -101,8 +104,10 @@ export const ResultsTable = ({
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Google: ${formatProviderDisplayName(r.swiadczeniodawca)}`}
+                      title={`Wyszukaj: ${formatProviderDisplayName(r.swiadczeniodawca)} ${capitalizeWords(r.miasto)}`}
                     >
-                      {formatProviderDisplayName(r.swiadczeniodawca)}
+                      <span aria-hidden="true">↗</span>
                     </a>
                   </td>
                   <td className="termin">{t.queueDays(r.sredni_czas)}</td>
@@ -161,6 +166,9 @@ export const ResultsTable = ({
                 <div className="card-row">
                   <span className="card-label">{t.thFacility}</span>
                   <span>
+                    <span className="facility-name">
+                      {formatProviderDisplayName(r.swiadczeniodawca)}
+                    </span>
                     <a
                       className="facility-link"
                       href={`https://www.google.com/search?q=${encodeURIComponent(
@@ -168,8 +176,10 @@ export const ResultsTable = ({
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`Google: ${formatProviderDisplayName(r.swiadczeniodawca)}`}
+                      title={`Google: ${formatProviderDisplayName(r.swiadczeniodawca)}`}
                     >
-                      {formatProviderDisplayName(r.swiadczeniodawca)}
+                      <span aria-hidden="true">↗</span>
                     </a>
                   </span>
                 </div>
