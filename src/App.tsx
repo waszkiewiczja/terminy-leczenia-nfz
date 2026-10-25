@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import type { Meta, TerminRecord, SearchFilters } from "./types";
 import { AppTitle } from "./AppTitle";
-import { Footer } from "./Footer";
 import { SearchForm } from "./SearchForm";
 import { ResultsTable } from "./ResultsTable";
 import { mapQueueToRecord } from "./functions/mapQueueToRecord";
@@ -24,10 +23,8 @@ const meta: Meta = metaJson;
 type ComboState = { params: FetchQueuesParams; page: number; hasMore: boolean };
 
 function buildCombos(filters: SearchFilters): FetchQueuesParams[] {
-  const regions =
-    filters.wojewodztwo.length > 0 ? filters.wojewodztwo : meta.wojewodztwa;
   const result: FetchQueuesParams[] = [];
-  for (const woj of regions) {
+  for (const woj of filters.wojewodztwo) {
     const code = getProvinceCode(woj);
     if (!code) continue;
     for (const caseType of [1, 2]) {
@@ -115,6 +112,8 @@ function App() {
   }
 
   const search = useCallback(async () => {
+    if (!filters.swiadczenie || filters.wojewodztwo.length === 0) return;
+
     setLoading(true);
     setSearched(true);
     setResults([]);
@@ -192,7 +191,6 @@ function App() {
           onLoadMore={loadMore}
         />
       )}
-      <Footer />
     </div>
   );
 }

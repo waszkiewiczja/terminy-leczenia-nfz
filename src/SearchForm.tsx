@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { Meta, SearchFilters } from "./types";
 import Autocomplete from "./Autocomplete";
 import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
@@ -21,6 +22,8 @@ const EN_PROVINCE_NAMES: Record<string, string> = {
   WIELKOPOLSKIE: "Greater Poland",
   ZACHODNIOPOMORSKIE: "West Pomeranian",
 };
+
+const MAX_SELECTED_PROVINCES = 5;
 
 function formatProvinceName(name: string, lang: "pl" | "en"): string {
   if (lang === "en") {
@@ -46,6 +49,7 @@ export const SearchForm = ({
 }: SearchFormProps) => {
   const lang = useLang();
   const t = useT();
+  const [provinceLimitReached, setProvinceLimitReached] = useState(false);
   const update = (patch: Partial<SearchFilters>) => {
     onFiltersChange({ ...filters, ...patch });
   };
@@ -87,9 +91,17 @@ export const SearchForm = ({
                   type="checkbox"
                   checked={filters.wojewodztwo.includes(w)}
                   onChange={(e) => {
+                    if (
+                      e.target.checked &&
+                      filters.wojewodztwo.length >= MAX_SELECTED_PROVINCES
+                    ) {
+                      setProvinceLimitReached(true);
+                      return;
+                    }
                     const next = e.target.checked
                       ? [...filters.wojewodztwo, w]
                       : filters.wojewodztwo.filter((v) => v !== w);
+                    setProvinceLimitReached(false);
                     update({ wojewodztwo: next, miejscowosc: "" });
                   }}
                 />
@@ -97,6 +109,11 @@ export const SearchForm = ({
               </label>
             ))}
           </div>
+          {provinceLimitReached && (
+            <p className="form-validation-message" role="alert">
+              {t.provinceLimitMessage}
+            </p>
+          )}
         </div>
       </div>
 
@@ -154,7 +171,9 @@ export const SearchForm = ({
       <button
         type="submit"
         className="btn-search"
-        disabled={loading || !filters.swiadczenie}
+        disabled={
+          loading || !filters.swiadczenie || filters.wojewodztwo.length === 0
+        }
       >
         {loading ? t.btnSearching : t.btnSearch}
       </button>

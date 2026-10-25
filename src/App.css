@@ -50,6 +50,12 @@
   color: #dc2626;
 }
 
+.form-validation-message {
+  margin: 0.4rem 0 0;
+  color: #b91c1c;
+  font-size: 0.85rem;
+}
+
 .form-group select,
 .autocomplete input {
   padding: 0.55rem 0.75rem;

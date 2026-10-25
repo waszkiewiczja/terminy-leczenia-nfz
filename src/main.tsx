@@ -8,6 +8,7 @@ import { RegulaminPage } from "./RegulaminPage.tsx";
 import { PolitykaPrywatnosciPage } from "./PolitykaPrywatnosciPage.tsx";
 import { KontaktPage } from "./KontaktPage.tsx";
 import { Nav } from "./Nav.tsx";
+import { Footer } from "./Footer.tsx";
 import { LangProvider } from "./lang/LangContext.tsx";
 import type { Lang } from "./lang/LangContext.tsx";
 
@@ -16,6 +17,7 @@ function Layout({ lang }: { lang: Lang }) {
     <LangProvider lang={lang}>
       <Nav />
       <Outlet />
+      <Footer />
     </LangProvider>
   );
 }

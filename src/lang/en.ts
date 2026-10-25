@@ -14,6 +14,7 @@ export const en: typeof pl = {
 
   // SearchForm
   labelWojewodztwo: "Province",
+  provinceLimitMessage: "You can select up to 5 provinces.",
   labelSwiadczenie: "What service are you looking for?",
   labelMiejscowosc: "City (optional)",
   labelPlacowka: "Facility (optional)",

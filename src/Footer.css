@@ -33,6 +33,10 @@
   margin: 0 0 0.5rem;
 }
 
+.site-footer p a {
+  color: #1a56db;
+}
+
 .site-footer p:last-child {
   margin-bottom: 0;
 }

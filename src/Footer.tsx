@@ -33,7 +33,10 @@ export const Footer = () => {
             type of service, or a specific facility. The search engine covers
             all 16 provinces and over 470 types of medical services.
           </p>
-          <p>Source data comes from the official portal maintained by NFZ.</p>
+          <p>
+            Source data comes from the official NFZ portal:{" "}
+            <a href="https://api.nfz.gov.pl/">https://api.nfz.gov.pl/</a>.
+          </p>
           <p className="site-footer-legal-links">
             <Link to="/en/regulamin">Terms of service</Link>
             <span aria-hidden="true">|</span>
@@ -74,8 +77,8 @@ export const Footer = () => {
           medycznych.
         </p>
         <p>
-          Dane źródłowe pochodzą z oficjalnego portalu prowadzonego przez NFZ
-          https://api.nfz.gov.pl/.
+          Dane źródłowe pochodzą z oficjalnego portalu prowadzonego przez NFZ{" "}
+          <a href="https://api.nfz.gov.pl/">https://api.nfz.gov.pl/</a>.
         </p>
         <p className="site-footer-legal-links">
           <Link to="/regulamin">Regulamin</Link>

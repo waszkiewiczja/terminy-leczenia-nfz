@@ -12,6 +12,7 @@ export const pl = {
 
   // SearchForm
   labelWojewodztwo: "Województwo",
+  provinceLimitMessage: "Możesz wybrać maksymalnie 5 województw.",
   labelSwiadczenie: "Jakiego świadczenia szukasz?",
   labelMiejscowosc: "Miejscowość (opcjonalne)",
   labelPlacowka: "Placówka (opcjonalne)",
