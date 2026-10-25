@@ -125,13 +125,17 @@ export const ResultsTable = ({
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      title={`Otwórz w Google Maps: ${capitalizeWords(r.miasto)}${ulica ? `, ${capitalizeWords(ulica)}` : ""}`}
                     >
                       {capitalizeWords(r.miasto)}
                       {ulica ? `, ${capitalizeWords(ulica)}` : ""}
                     </a>
                     {telefon && (
                       <div className="telefon">
-                        <a href={`tel:${telefon.replace(/\s/g, "")}`}>
+                        <a
+                          href={`tel:${telefon.replace(/\s/g, "")}`}
+                          title={`Zadzwoń: ${telefon}`}
+                        >
                           {telefon}
                         </a>
                       </div>
@@ -202,6 +206,7 @@ export const ResultsTable = ({
                       )}`}
                       target="_blank"
                       rel="noopener noreferrer"
+                      title={`Otwórz w Google Maps: ${capitalizeWords(r.miasto)}${ulica ? `, ${capitalizeWords(ulica)}` : ""}`}
                     >
                       {capitalizeWords(r.miasto)}
                       {ulica ? `, ${capitalizeWords(ulica)}` : ""}
@@ -212,7 +217,10 @@ export const ResultsTable = ({
                   <div className="card-row">
                     <span className="card-label">{t.phone}</span>
                     <span className="telefon">
-                      <a href={`tel:${telefon.replace(/\s/g, "")}`}>
+                      <a
+                        href={`tel:${telefon.replace(/\s/g, "")}`}
+                        title={`Zadzwoń: ${telefon}`}
+                      >
                         {telefon}
                       </a>
                     </span>
