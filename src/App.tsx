@@ -3,11 +3,11 @@ import type { Meta, TerminRecord, SearchFilters } from "./types";
 import { AppTitle } from "./AppTitle";
 import { SearchForm } from "./SearchForm";
 import { ResultsTable } from "./ResultsTable";
+import { HomeContent } from "./HomeContent";
 import { mapQueueToRecord } from "./functions/mapQueueToRecord";
 import { filtersFromParams } from "./functions/filtersFromParams";
 import { fetchQueuesPage, getProvinceCode } from "./api/nfzApi";
 import type { FetchQueuesParams } from "./api/nfzApi";
-import metaJson from "../public/dane/meta.json";
 import "./App.css";
 
 const EMPTY_FILTERS: SearchFilters = {
@@ -18,7 +18,32 @@ const EMPTY_FILTERS: SearchFilters = {
   szpital: "",
 };
 
-const meta: Meta = metaJson;
+// Same order as in public/dane/meta.json so SSR and the first client render match.
+const INITIAL_META: Meta = {
+  wojewodztwa: [
+    "DOLNOŚLĄSKIE",
+    "KUJAWSKO-POMORSKIE",
+    "LUBELSKIE",
+    "LUBUSKIE",
+    "MAZOWIECKIE",
+    "MAŁOPOLSKIE",
+    "OPOLSKIE",
+    "PODKARPACKIE",
+    "PODLASKIE",
+    "POMORSKIE",
+    "WARMIŃSKO-MAZURSKIE",
+    "WIELKOPOLSKIE",
+    "ZACHODNIOPOMORSKIE",
+    "ŁÓDZKIE",
+    "ŚLĄSKIE",
+    "ŚWIĘTOKRZYSKIE",
+  ],
+  services: [],
+  cities: {},
+  allCities: [],
+  providers: {},
+  allProviders: [],
+};
 
 type ComboState = { params: FetchQueuesParams; page: number; hasMore: boolean };
 
@@ -67,6 +92,7 @@ function setMetaTag(
 }
 
 function App() {
+  const [meta, setMeta] = useState<Meta>(INITIAL_META);
   const [filters, setFilters] = useState<SearchFilters>(
     () => filtersFromParams() ?? EMPTY_FILTERS,
   );
@@ -146,6 +172,22 @@ function App() {
   }, [filters]);
 
   useEffect(() => {
+    let cancelled = false;
+    fetch(`${import.meta.env.BASE_URL}dane/meta.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json() as Promise<Meta>;
+      })
+      .then((data) => {
+        if (!cancelled) setMeta(data);
+      })
+      .catch((e) => console.error("Failed to load meta.json", e));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
     if (filtersFromParams() && !autoSearchDone.current) {
       autoSearchDone.current = true;
       search();
@@ -172,7 +214,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
+    <main className="app">
       <AppTitle />
       <SearchForm
         meta={meta}
@@ -191,7 +233,8 @@ function App() {
           onLoadMore={loadMore}
         />
       )}
-    </div>
+      <HomeContent />
+    </main>
   );
 }
 

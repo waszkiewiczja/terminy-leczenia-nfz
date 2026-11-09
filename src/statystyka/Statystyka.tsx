@@ -6,9 +6,11 @@ import {
 } from "../api/nfzStatApi";
 import { BenefitSearch } from "./BenefitSearch";
 import { YearView } from "./YearView";
+import { useT } from "../lang/LangContext";
 import "./Statystyka.css";
 
 export function Statystyka() {
+  const t = useT();
   const [selectedBenefit, setSelectedBenefit] = useState<Benefit | null>(null);
   const [years, setYears] = useState<IndexYear[]>([]);
   const [selectedYear, setSelectedYear] = useState<number | null>(null);
@@ -26,9 +28,7 @@ export function Statystyka() {
       try {
         const entries = await fetchIndexOfTables(b.code);
         if (!entries.length) {
-          setIndexError(
-            "Nie znaleziono danych statystycznych dla tego świadczenia.",
-          );
+          setIndexError(t.statNoData);
           return;
         }
         const productName = entries[0].attributes["product-name"];
@@ -48,14 +48,12 @@ export function Statystyka() {
           setSelectedYear(allYears[0].year);
         }
       } catch (e) {
-        setIndexError(
-          e instanceof Error ? e.message : "Błąd pobierania indeksu tabel",
-        );
+        setIndexError(e instanceof Error ? e.message : t.statIndexError);
       } finally {
         setLoadingIndex(false);
       }
     },
-    [],
+    [t],
   );
 
   const handleSelectBenefit = useCallback(
@@ -97,15 +95,11 @@ export function Statystyka() {
   const currentYearData = years.find((y) => y.year === selectedYear);
 
   return (
-    <div className="app">
+    <main className="app">
       <div className="stat-page">
         <div className="stat-intro">
-          <h2 className="stat-page-title">Statystyki świadczeń NFZ</h2>
-          <p className="stat-page-desc">
-            Przeglądaj dane statystyczne dotyczące hospitalizacji. Liczbę
-            pacjentów, strukturę według płci, wieku, trybu przyjęcia, rozpoznań
-            ICD-10.
-          </p>
+          <h1 className="stat-page-title">{t.statTitle}</h1>
+          <p className="stat-page-desc">{t.statDesc}</p>
         </div>
 
         <div className="stat-search-box">
@@ -121,17 +115,15 @@ export function Statystyka() {
             <button
               className="copy-btn"
               onClick={handleCopy}
-              title="Kopiuj link do aktualnych statystyk"
+              title={t.statCopyTitle}
             >
-              {copied ? "Skopiowano" : "Kopiuj"}
+              {copied ? t.statCopied : t.statCopy}
             </button>
           </div>
         )}
 
         {loadingIndex && (
-          <div className="stat-loading">
-            Pobieranie dostępnych tabel statystycznych…
-          </div>
+          <div className="stat-loading">{t.statLoadingIndex}</div>
         )}
 
         {indexError && <div className="stat-error">{indexError}</div>}
@@ -139,7 +131,7 @@ export function Statystyka() {
         {years.length > 0 && (
           <>
             <div className="year-selector">
-              <label className="year-selector-label">Rok:</label>
+              <label className="year-selector-label">{t.statYear}</label>
               <div className="year-buttons">
                 {years.slice(0, 3).map((y) => (
                   <button
@@ -157,6 +149,6 @@ export function Statystyka() {
           </>
         )}
       </div>
-    </div>
+    </main>
   );
 }

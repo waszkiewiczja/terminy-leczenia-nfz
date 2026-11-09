@@ -7,14 +7,18 @@ import { RegulaminPage } from "./RegulaminPage.tsx";
 import { PolitykaPrywatnosciPage } from "./PolitykaPrywatnosciPage.tsx";
 import { KontaktPage } from "./KontaktPage.tsx";
 import { Nav } from "./Nav.tsx";
+import { Footer } from "./Footer.tsx";
 import { LangProvider } from "./lang/LangContext.tsx";
 import type { Lang } from "./lang/LangContext.tsx";
+
+export { seoRoutes, buildHead, buildSitemap } from "./seo.ts";
 
 function Layout() {
   return (
     <>
       <Nav />
       <Outlet />
+      <Footer />
     </>
   );
 }

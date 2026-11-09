@@ -4,7 +4,7 @@ import "./Footer.css";
 
 export const Footer = () => {
   const lang = useLang();
-  const footerLogoSrc = `${import.meta.env.BASE_URL}terminy leczenia nfz.jpg`;
+  const footerLogoSrc = `${import.meta.env.BASE_URL}terminy-leczenia-nfz.jpg`;
 
   if (lang === "en") {
     return (
@@ -15,6 +15,9 @@ export const Footer = () => {
             className="site-footer-logo"
             src={footerLogoSrc}
             alt="Terminy leczenia NFZ"
+            width={1280}
+            height={768}
+            loading="lazy"
           />
           <p>
             The <b>NFZ treatment dates</b> service lets you quickly search
@@ -57,6 +60,9 @@ export const Footer = () => {
           className="site-footer-logo"
           src={footerLogoSrc}
           alt="Terminy leczenia NFZ"
+          width={1280}
+          height={768}
+          loading="lazy"
         />
         <p>
           Serwis <b>terminy leczenia NFZ</b> umożliwia szybkie wyszukiwanie
@@ -83,7 +89,7 @@ export const Footer = () => {
         <p className="site-footer-legal-links">
           <Link to="/regulamin">Regulamin</Link>
           <span aria-hidden="true">|</span>
-          <Link to="/polityka-prywatnosci">Polityka prywatnosci</Link>
+          <Link to="/polityka-prywatnosci">Polityka prywatności</Link>
           <span aria-hidden="true">|</span>
           <Link to="/kontakt">Kontakt</Link>
         </p>

@@ -10,25 +10,20 @@ const template = fs.readFileSync(path.resolve(distDir, "index.html"), "utf-8");
 const serverEntry = pathToFileURL(
   path.resolve(distDir, "server/entry-server.js"),
 ).href;
-const { render } = await import(serverEntry);
+const { render, seoRoutes, buildHead, buildSitemap } = await import(
+  serverEntry
+);
 
-const routes = [
-  { url: "/", lang: "pl" },
-  { url: "/statystyka", lang: "pl" },
-  { url: "/regulamin", lang: "pl" },
-  { url: "/polityka-prywatnosci", lang: "pl" },
-  { url: "/kontakt", lang: "pl" },
-  { url: "/en", lang: "en" },
-  { url: "/en/statystyka", lang: "en" },
-  { url: "/en/regulamin", lang: "en" },
-  { url: "/en/polityka-prywatnosci", lang: "en" },
-  { url: "/en/kontakt", lang: "en" },
-];
+// Build runs after each weekly data update, so the build date is the data review date.
+const buildDate = new Date().toISOString().slice(0, 10);
 
-for (const { url, lang } of routes) {
+for (const route of seoRoutes) {
+  const { path: url, lang } = route;
   const appHtml = render(url, lang);
   const html = template
     .replace("<!--ssr-outlet-->", () => appHtml)
+    .replace("<!--seo-head-->", () => buildHead(route, buildDate))
+    .replace(/<title>[^<]*<\/title>/, () => `<title>${route.title}</title>`)
     .replace(/(<html[^>]*) lang="[^"]*"/, `$1 lang="${lang}"`);
 
   const outPath =
@@ -40,3 +35,6 @@ for (const { url, lang } of routes) {
   fs.writeFileSync(outPath, html);
   console.log("Pre-rendered:", outPath);
 }
+
+fs.writeFileSync(path.resolve(distDir, "sitemap.xml"), buildSitemap(buildDate));
+console.log("Sitemap written");

@@ -12,6 +12,33 @@
   font-size: 1.2rem;
 }
 
+/* Home content */
+.home-content {
+  max-width: 80ch;
+  margin: 4rem auto 0;
+  color: #334155;
+  line-height: 1.7;
+}
+
+.home-content article + article {
+  margin-top: 2rem;
+}
+
+.home-content h2 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  margin: 0 0 0.75rem;
+}
+
+.home-content p,
+.home-content ol {
+  margin: 0 0 0.75rem;
+}
+
+.home-content li + li {
+  margin-top: 0.4rem;
+}
+
 /* Search Form */
 .search-form {
   background: #f8fafc;

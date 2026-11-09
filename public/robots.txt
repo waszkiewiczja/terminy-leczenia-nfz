@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://terminy-leczenia-nfz.pl/sitemap.xml
