@@ -32,7 +32,9 @@ export const Nav: React.FC = () => {
         {t.navStatystyki}
       </NavLink>
       <a href={switchHref} className="app-nav-link lang-switch">
-        {t.langSwitch}
+        {lang === "en" && switchHref === "/"
+          ? "Terminy Leczenia NFZ"
+          : t.langSwitch}
       </a>
     </nav>
   );
