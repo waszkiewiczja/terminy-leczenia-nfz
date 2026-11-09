@@ -142,6 +142,7 @@ function homeStructuredData(route: SeoRoute, lastReviewed: string): unknown {
         inLanguage,
         isAccessibleForFree: true,
         offers: { "@type": "Offer", price: "0", priceCurrency: "PLN" },
+        publisher: { "@id": `${SITE_URL}/#organization` },
       },
       {
         "@type": "MedicalWebPage",
@@ -151,6 +152,7 @@ function homeStructuredData(route: SeoRoute, lastReviewed: string): unknown {
         description: route.description,
         inLanguage,
         isPartOf: { "@id": `${SITE_URL}/#website` },
+        publisher: { "@id": `${SITE_URL}/#organization` },
         mainEntity: { "@id": `${url}#app` },
         about: {
           "@type": "Thing",

@@ -20,32 +20,36 @@ export const Footer = () => {
             loading="lazy"
           />
           <p>
-            The <b>NFZ treatment dates</b> service lets you quickly search
-            available appointment and procedure dates covered by the National
-            Health Fund (NFZ). Data is fetched directly from the NFZ portal and
-            updated continuously.
+            The <strong>NFZ treatment dates</strong> service lets you quickly
+            search available appointment and procedure dates covered by the
+            National Health Fund (NFZ). Data is fetched directly from the NFZ
+            portal and updated continuously.
           </p>
           <p>
-            Using our <b>NFZ treatment date</b> search engine you can compare
-            waiting times for medical services across different facilities and
+            Using our NFZ treatment date search engine you can compare waiting
+            times for medical services across different facilities and
             provinces. Find the next available specialist appointments, surgical
             procedures, rehabilitation, diagnostics, and more.
           </p>
           <p>
-            Check <b>NFZ treatment dates</b> in your region. Select a province,
-            type of service, or a specific facility. The search engine covers
-            all 16 provinces and over 470 types of medical services.
+            Check NFZ treatment dates in your region. Select a province, type of
+            service, or a specific facility. The search engine covers all 16
+            provinces and over 470 types of medical services.
           </p>
           <p>
             Source data comes from the official NFZ portal:{" "}
             <a href="https://api.nfz.gov.pl/">https://api.nfz.gov.pl/</a>.
           </p>
+          <p className="site-footer-disclaimer">
+            This service is not an official website of the National Health Fund
+            (NFZ) and is not affiliated with it.
+          </p>
           <p className="site-footer-legal-links">
-            <Link to="/en/regulamin">Terms of service</Link>
+            <Link to="/en/regulamin/">Terms of service</Link>
             <span aria-hidden="true">|</span>
-            <Link to="/en/polityka-prywatnosci">Privacy policy</Link>
+            <Link to="/en/polityka-prywatnosci/">Privacy policy</Link>
             <span aria-hidden="true">|</span>
-            <Link to="/en/kontakt">Contact</Link>
+            <Link to="/en/kontakt/">Contact</Link>
           </p>
         </article>
       </footer>
@@ -65,33 +69,33 @@ export const Footer = () => {
           loading="lazy"
         />
         <p>
-          Serwis <b>terminy leczenia NFZ</b> umożliwia szybkie wyszukiwanie
-          dostępnych terminów wizyt i zabiegów w ramach NFZ. Dane są pobierane
-          bezpośrednio ze strony NFZ i aktualizowane na bieżąco.
+          Serwis <strong>terminy leczenia NFZ</strong> umożliwia szybkie
+          wyszukiwanie dostępnych terminów wizyt i zabiegów w ramach NFZ. Dane
+          są pobierane bezpośrednio ze strony NFZ i aktualizowane na bieżąco.
         </p>
         <p>
-          Dzięki naszej wyszukiwarce <b>terminów leczenia NFZ</b> możesz
-          porównać czasy oczekiwania na świadczenia medyczne w różnych
-          placówkach i województwach. Znajdziesz tutaj informacje o pierwszych
-          wolnych terminach u specjalistów, na zabiegi operacyjne,
-          rehabilitację, diagnostykę i wiele innych.
+          Dzięki naszej wyszukiwarce terminów leczenia NFZ możesz porównać czasy
+          oczekiwania na świadczenia medyczne w różnych placówkach i
+          województwach. Znajdziesz tutaj informacje o pierwszych wolnych
+          terminach u specjalistów, na zabiegi operacyjne, rehabilitację,
+          diagnostykę i wiele innych.
         </p>
         <p>
-          Sprawdź <b>terminy leczenia NFZ</b> w swoim regionie. Wybierz
-          województwo, rodzaj świadczenia lub konkretną placówkę. Wyszukiwarka
-          obsługuje wszystkie 16 województw i ponad 470 rodzajów świadczeń
-          medycznych.
+          Sprawdź terminy leczenia NFZ w swoim regionie. Wybierz województwo,
+          rodzaj świadczenia lub konkretną placówkę. Wyszukiwarka obsługuje
+          wszystkie 16 województw i ponad 470 rodzajów świadczeń medycznych.
         </p>
         <p>
+          Serwis nie jest oficjalnym serwisem NFZ ani nie jest z nim powiązany.
           Dane źródłowe pochodzą z oficjalnego portalu prowadzonego przez NFZ{" "}
           <a href="https://api.nfz.gov.pl/">https://api.nfz.gov.pl/</a>.
         </p>
         <p className="site-footer-legal-links">
-          <Link to="/regulamin">Regulamin</Link>
+          <Link to="/regulamin/">Regulamin</Link>
           <span aria-hidden="true">|</span>
-          <Link to="/polityka-prywatnosci">Polityka prywatności</Link>
+          <Link to="/polityka-prywatnosci/">Polityka prywatności</Link>
           <span aria-hidden="true">|</span>
-          <Link to="/kontakt">Kontakt</Link>
+          <Link to="/kontakt/">Kontakt</Link>
         </p>
         <p>
           <a

@@ -28,11 +28,37 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "@id": "https://terminy-leczenia-nfz.pl/#website",
-        "name": "Terminy Leczenia NFZ",
-        "alternateName": "Wyszukiwarka terminów leczenia NFZ",
-        "url": "https://terminy-leczenia-nfz.pl/"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://terminy-leczenia-nfz.pl/#website",
+            "name": "Terminy Leczenia NFZ",
+            "alternateName": "Wyszukiwarka terminów leczenia NFZ",
+            "url": "https://terminy-leczenia-nfz.pl/",
+            "publisher": {
+              "@id": "https://terminy-leczenia-nfz.pl/#organization"
+            }
+          },
+          {
+            "@type": "Organization",
+            "@id": "https://terminy-leczenia-nfz.pl/#organization",
+            "name": "Terminy Leczenia NFZ",
+            "url": "https://terminy-leczenia-nfz.pl/",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://terminy-leczenia-nfz.pl/logo.jpg",
+              "width": 128,
+              "height": 128
+            },
+            "email": "kontakt@terminy-leczenia-nfz.pl",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "email": "kontakt@terminy-leczenia-nfz.pl",
+              "availableLanguage": ["pl", "en"]
+            }
+          }
+        ]
       }
     </script>
   </head>

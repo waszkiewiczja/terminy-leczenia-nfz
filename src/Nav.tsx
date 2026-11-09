@@ -2,20 +2,24 @@ import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useLang, useT } from "./lang/LangContext";
 
+// GitHub Pages redirects paths without a trailing slash (301).
+const withSlash = (path: string) => (path.endsWith("/") ? path : `${path}/`);
+
 export const Nav: React.FC = () => {
   const lang = useLang();
   const t = useT();
   const location = useLocation();
   const prefix = lang === "en" ? "/en" : "";
-  const switchHref =
+  const switchHref = withSlash(
     lang === "pl"
       ? "/en" + (location.pathname === "/" ? "" : location.pathname)
-      : location.pathname.replace(/^\/en/, "") || "/";
+      : location.pathname.replace(/^\/en/, "") || "/",
+  );
 
   return (
     <nav className="app-nav">
       <NavLink
-        to={lang === "en" ? "/en" : "/"}
+        to={lang === "en" ? "/en/" : "/"}
         end
         className={({ isActive }) =>
           "app-nav-link" + (isActive ? " active" : "")
@@ -24,7 +28,7 @@ export const Nav: React.FC = () => {
         {t.navTerminy}
       </NavLink>
       <NavLink
-        to={`${prefix}/statystyka`}
+        to={`${prefix}/statystyka/`}
         className={({ isActive }) =>
           "app-nav-link" + (isActive ? " active" : "")
         }

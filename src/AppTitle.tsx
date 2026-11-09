@@ -4,7 +4,7 @@ import "./AppTitle.css";
 export const AppTitle = () => {
   const lang = useLang();
   const t = useT();
-  const homeHref = lang === "en" ? "/en" : "/";
+  const homeHref = lang === "en" ? "/en/" : "/";
 
   return (
     <div className="app-title-row">

@@ -41,6 +41,11 @@
   margin-bottom: 0;
 }
 
+.site-footer p.site-footer-disclaimer {
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
 .site-footer-partners-trigger {
   border: 0;
   background: transparent;
