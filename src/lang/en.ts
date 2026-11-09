@@ -7,7 +7,7 @@ export const en: typeof pl = {
   langSwitch: "PL",
 
   // AppTitle
-  appAlt: "Terminy leczenia NFZ",
+  appAlt: "NFZ Treatment Dates logo",
   appH1: "Current NFZ Treatment Dates",
   appLead:
     "Check current NFZ treatment dates in Poland and find the nearest available appointment or procedure by service, province, city, or facility.",
@@ -19,6 +19,10 @@ export const en: typeof pl = {
   labelMiejscowosc: "City (optional)",
   labelPlacowka: "Facility (optional)",
   placeholder: "Type or select from list...",
+  requiredField: "(required)",
+  clearField: "Clear field",
+  toggleSuggestions: "Show or hide suggestions",
+  moreSuggestions: (n: number) => `...and ${n} more — type more letters`,
   labelDzieci: "Services for children (optional)",
   btnSearch: "Search",
   btnSearching: "Searching...",

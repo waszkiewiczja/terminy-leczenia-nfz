@@ -5,7 +5,7 @@ export const pl = {
   langSwitch: "EN",
 
   // AppTitle
-  appAlt: "Terminy leczenia NFZ",
+  appAlt: "Logo Terminy Leczenia NFZ",
   appH1: "Aktualne Terminy Leczenia NFZ",
   appLead:
     "Sprawdź aktualne terminy leczenia NFZ w Polsce i znajdź najbliższy wolny termin wizyty lub zabiegu według świadczenia, województwa, miasta czy placówki.",
@@ -17,6 +17,10 @@ export const pl = {
   labelMiejscowosc: "Miejscowość (opcjonalne)",
   labelPlacowka: "Placówka (opcjonalne)",
   placeholder: "Wpisz lub wybierz z listy...",
+  requiredField: "(wymagane)",
+  clearField: "Wyczyść pole",
+  toggleSuggestions: "Pokaż lub ukryj podpowiedzi",
+  moreSuggestions: (n: number) => `...i ${n} więcej — wpisz więcej liter`,
   labelDzieci: "Świadczenia udzielane dzieciom (opcjonalne)",
   btnSearch: "Szukaj",
   btnSearching: "Szukam...",

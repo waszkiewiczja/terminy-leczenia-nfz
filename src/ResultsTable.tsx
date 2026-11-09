@@ -12,6 +12,35 @@ interface ResultsTableProps {
   onLoadMore?: () => void;
 }
 
+export function ResultsStatus({
+  searched,
+  loading,
+  loadingMore,
+  results,
+}: {
+  searched: boolean;
+  loading: boolean;
+  loadingMore: boolean;
+  results: TerminRecord[];
+}) {
+  const t = useT();
+  const message = !searched
+    ? ""
+    : loading
+      ? t.loading
+      : loadingMore
+        ? t.loadingMore
+        : results.length === 0
+          ? t.noResults
+          : t.resultsCount(results.length, capitalizeWords(results[0].sw));
+
+  return (
+    <div className="sr-only" role="status" aria-atomic="true">
+      {message}
+    </div>
+  );
+}
+
 function buildShareUrl(filters: SearchFilters): string {
   const p = new URLSearchParams();
   if (filters.swiadczenie) p.set("s", filters.swiadczenie);

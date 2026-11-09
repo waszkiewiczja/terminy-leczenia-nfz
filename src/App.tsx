@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import type { Meta, TerminRecord, SearchFilters } from "./types";
 import { AppTitle } from "./AppTitle";
 import { SearchForm } from "./SearchForm";
-import { ResultsTable } from "./ResultsTable";
+import { ResultsStatus, ResultsTable } from "./ResultsTable";
 import { HomeContent } from "./HomeContent";
 import { mapQueueToRecord } from "./functions/mapQueueToRecord";
 import { filtersFromParams } from "./functions/filtersFromParams";
@@ -222,6 +222,12 @@ function App() {
         onFiltersChange={setFilters}
         onSearch={search}
         loading={loading}
+      />
+      <ResultsStatus
+        searched={searched}
+        loading={loading}
+        loadingMore={loadingMore}
+        results={results}
       />
       {searched && (
         <ResultsTable

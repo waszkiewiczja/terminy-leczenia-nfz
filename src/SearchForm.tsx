@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { Meta, SearchFilters } from "./types";
 import Autocomplete from "./Autocomplete";
 import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
@@ -49,6 +49,7 @@ export const SearchForm = ({
 }: SearchFormProps) => {
   const lang = useLang();
   const t = useT();
+  const provinceErrorId = useId();
   const [provinceLimitReached, setProvinceLimitReached] = useState(false);
   const update = (patch: Partial<SearchFilters>) => {
     onFiltersChange({ ...filters, ...patch });
@@ -79,11 +80,18 @@ export const SearchForm = ({
       }}
     >
       <div className="form-row">
-        <div className="form-group">
-          <label>
+        <fieldset
+          className="form-group province-group"
+          aria-describedby={provinceLimitReached ? provinceErrorId : undefined}
+        >
+          <legend>
             {t.labelWojewodztwo}
-            <span className="required-asterisk"> *</span>
-          </label>
+            <span className="required-asterisk" aria-hidden="true">
+              {" "}
+              *
+            </span>
+            <span className="sr-only"> {t.requiredField}</span>
+          </legend>
           <div className="woj-checkboxes">
             {meta.wojewodztwa.map((w) => (
               <label key={w} className="woj-checkbox">
@@ -110,15 +118,20 @@ export const SearchForm = ({
             ))}
           </div>
           {provinceLimitReached && (
-            <p className="form-validation-message" role="alert">
+            <p
+              id={provinceErrorId}
+              className="form-validation-message"
+              role="alert"
+            >
               {t.provinceLimitMessage}
             </p>
           )}
-        </div>
+        </fieldset>
       </div>
 
       <div className="form-row">
         <Autocomplete
+          required
           label={
             <>
               {t.labelSwiadczenie}
