@@ -6,6 +6,7 @@ import { ResultsStatus, ResultsTable } from "./ResultsTable";
 import { HomeContent } from "./HomeContent";
 import { mapQueueToRecord } from "./functions/mapQueueToRecord";
 import { filtersFromParams } from "./functions/filtersFromParams";
+import { sortResults } from "./functions/sortResults";
 import { fetchQueuesPage, getProvinceCode } from "./api/nfzApi";
 import type { FetchQueuesParams } from "./api/nfzApi";
 import "./App.css";
@@ -63,10 +64,6 @@ function buildCombos(filters: SearchFilters): FetchQueuesParams[] {
     }
   }
   return result;
-}
-
-function sortResults(arr: TerminRecord[]): TerminRecord[] {
-  return [...arr].sort((a, b) => a.sredni_czas - b.sredni_czas);
 }
 
 function toTitleCase(value: string): string {

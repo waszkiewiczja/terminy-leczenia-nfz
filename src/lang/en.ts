@@ -37,7 +37,8 @@ export const en: typeof pl = {
   thCase: "Case",
   thFacility: "Facility",
   thQueue: "Queue",
-  queueDays: (days: number) => (days === 1 ? "1 day" : `${days} days`),
+  queueDays: (days: number | null) =>
+    days === null ? "No data" : days === 1 ? "1 day" : `${days} days`,
   thUnit: "Unit",
   thAddress: "Address",
   urgent: "Urgent",

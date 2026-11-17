@@ -9,7 +9,7 @@ export interface TerminRecord {
   dzieci: boolean;
   oczekujacy: number;
   skresleni: number;
-  sredni_czas: number; // Średni czas oczekiwania (dni)
+  sredni_czas: number | null; // Średni czas oczekiwania (dni), null oznacza brak danych
   termin: string; // Pierwszy wolny termin (data)
   data_info: string;
 }
@@ -41,15 +41,15 @@ export interface QueueAttributes {
   phone: string;
   "benefits-for-children": string | null;
   "age-range": string | null;
-  statistics: {
-    "provider-data": {
+  statistics?: {
+    "provider-data"?: {
       awaiting: number;
       removed: number;
-      "average-period": number;
+      "average-period"?: number | null;
       update: string;
-    };
+    } | null;
     "computed-data": null;
-  };
+  } | null;
   dates: {
     applicable: boolean;
     date: string;

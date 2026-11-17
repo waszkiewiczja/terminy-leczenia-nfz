@@ -36,7 +36,8 @@ export const pl = {
   thCase: "Przypadek",
   thFacility: "Placówka",
   thQueue: "Kolejka",
-  queueDays: (days: number) => (days === 1 ? "1 dzień" : `${days} dni`),
+  queueDays: (days: number | null) =>
+    days === null ? "Brak danych" : days === 1 ? "1 dzień" : `${days} dni`,
   thUnit: "Komórka",
   thAddress: "Adres",
   urgent: "Pilny",

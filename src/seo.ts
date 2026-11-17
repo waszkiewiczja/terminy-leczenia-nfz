@@ -21,7 +21,7 @@ export const seoRoutes: SeoRoute[] = [
     lang: "pl",
     home: true,
     alternate: "/en",
-    title: "Terminy Leczenia NFZ – Wyszukiwarka Kolejek i Wolnych Terminów",
+    title: "Terminy Leczenia NFZ - Wyszukiwarka",
     description:
       "Sprawdź aktualne terminy leczenia NFZ. Znajdź najszybszy wolny termin u specjalisty, na zabieg lub badanie w swoim województwie. Dane prosto z NFZ.",
   },
