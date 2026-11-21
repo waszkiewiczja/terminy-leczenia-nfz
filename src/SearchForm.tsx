@@ -3,6 +3,7 @@ import type { Meta, SearchFilters } from "./types";
 import Autocomplete from "./Autocomplete";
 import { capitalizeWords, formatProviderDisplayName } from "./textFormat";
 import { useLang, useT } from "./lang/LangContext";
+import { trackSearch } from "./analytics";
 
 const EN_PROVINCE_NAMES: Record<string, string> = {
   DOLNOŚLĄSKIE: "Lower Silesian",
@@ -76,6 +77,9 @@ export const SearchForm = ({
       className="search-form"
       onSubmit={(e) => {
         e.preventDefault();
+        if (!loading && filters.swiadczenie && filters.wojewodztwo.length > 0) {
+          trackSearch(filters, meta);
+        }
         onSearch();
       }}
     >

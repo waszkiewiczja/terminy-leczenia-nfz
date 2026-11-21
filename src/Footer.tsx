@@ -1,5 +1,6 @@
 import { useLang } from "./lang/LangContext";
 import { Link } from "react-router-dom";
+import { AnalyticsSettings } from "./AnalyticsSettings";
 import "./Footer.css";
 
 export const Footer = () => {
@@ -44,13 +45,15 @@ export const Footer = () => {
             This service is not an official website of the National Health Fund
             (NFZ) and is not affiliated with it.
           </p>
-          <p className="site-footer-legal-links">
+          <div className="site-footer-legal-links">
             <Link to="/en/regulamin/">Terms of service</Link>
             <span aria-hidden="true">|</span>
             <Link to="/en/polityka-prywatnosci/">Privacy policy</Link>
             <span aria-hidden="true">|</span>
             <Link to="/en/kontakt/">Contact</Link>
-          </p>
+            <span aria-hidden="true">|</span>
+            <AnalyticsSettings />
+          </div>
         </article>
       </footer>
     );
@@ -90,23 +93,15 @@ export const Footer = () => {
           Dane źródłowe pochodzą z oficjalnego portalu prowadzonego przez NFZ{" "}
           <a href="https://api.nfz.gov.pl/">https://api.nfz.gov.pl/</a>.
         </p>
-        <p className="site-footer-legal-links">
+        <div className="site-footer-legal-links">
           <Link to="/regulamin/">Regulamin</Link>
           <span aria-hidden="true">|</span>
           <Link to="/polityka-prywatnosci/">Polityka prywatności</Link>
           <span aria-hidden="true">|</span>
           <Link to="/kontakt/">Kontakt</Link>
-        </p>
-        <p>
-          <a
-            className="site-footer-muted-link"
-            href="https://uno.directory"
-            target="_blank"
-            rel="noopener"
-          >
-            .
-          </a>
-        </p>
+          <span aria-hidden="true">|</span>
+          <AnalyticsSettings />
+        </div>
       </article>
     </footer>
   );

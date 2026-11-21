@@ -124,21 +124,15 @@
   display: block;
 }
 
-.site-footer-muted-link {
-  color: #f1f5f9;
-  text-decoration: none;
-}
-
-.site-footer-muted-link:hover {
-  color: #cbd5e1;
-}
-
 .site-footer-legal-links {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   gap: 0.55rem;
-  margin-top: 0.9rem;
+  margin: 0.9rem 0 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.7;
 }
 
 .site-footer-legal-links a {
