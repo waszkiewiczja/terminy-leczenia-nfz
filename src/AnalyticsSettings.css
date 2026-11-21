@@ -15,12 +15,16 @@
 .analytics-banner {
   position: fixed;
   z-index: 100;
+  top: 50%;
   right: 1rem;
-  bottom: 1rem;
   left: 1rem;
   max-width: 38rem;
+  max-height: calc(100vh - 2rem);
+  max-height: calc(100dvh - 2rem);
   margin: 0 auto;
   padding: 1rem 1.25rem;
+  overflow-y: auto;
+  transform: translateY(-50%);
   text-align: left;
   background: #fff;
   border: 1px solid #cbd5e1;
